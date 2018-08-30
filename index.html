@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu</title>
+  <script src="./script.js"></script>
+  <script>
+    window.onload = function () {
+      var menu = new Menu('menu', 'menu', [
+        new MenuItem('/', 'Home'),
+        new MenuItem('/news', 'News'),
+        new MenuItem('/blog', 'Blog')
+      ]);
+
+      document.body.appendChild(menu.render());
+
+      // для проверки удаления раскомментировать строку ниже
+      // menu.remove();
+      // menu.items[1].remove();
+    }
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>
