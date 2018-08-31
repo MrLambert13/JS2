@@ -4,24 +4,98 @@
   <meta charset="UTF-8">
   <title>Menu</title>
   <script src="./script.js"></script>
+  <style type="text/css">
+    .nav {
+      display: flex;
+    }
+
+    /*.menu-item {
+      padding: 15px 30px;
+      margin: 0 10px;
+      border: 1px solid black;
+      background-color: beige;
+    }
+
+    .menu {
+      display: flex;
+      list-style-type: none;
+    }*/
+
+    .hide {
+      display: none;
+    }
+  </style>
   <script>
     window.onload = function () {
       var menu = new Menu('menu', 'menu', [
-        new MenuItem('/', 'Home'),
-        new MenuItem('/news', 'News'),
-        new MenuItem('/blog', 'Blog')
-      ]);
+          new MenuItem('/', 'Home', [
+            new SubMenu('submenu', 'submenu', [
+              new MenuItem('/qwe', 'qweText', []),
+              new MenuItem('/asd', 'asdText', []),
+            ])
+          ]),
 
-      document.body.appendChild(menu.render());
+          new MenuItem('/news', 'News', []),
 
-      // для проверки удаления раскомментировать строку ниже
-      // menu.remove();
-      // menu.items[1].remove();
+          new MenuItem('/blog', 'Blog', [
+            new SubMenu('submenu', 'submenu', [
+              new MenuItem('/qwe', 'Blog1', []),
+              new MenuItem('/asd', 'Blog2', []),
+            ])
+          ])
+        ]
+      );
+
+      //скрыть кнопки удаления
+      document.getElementById('remove').className = "hide";
+      document.getElementById('remove-items1').className = "hide";
+      document.getElementById('remove-items2').className = "hide";
+      document.getElementById('remove-items3').className = "hide";
+
+      var nav = document.querySelector('nav');
+      document.getElementById('render').addEventListener('click', function () {
+        // nav.innerHTML = menu.render();
+        nav.appendChild(menu.render());
+
+
+        document.getElementById('remove').className = "";
+        document.getElementById('remove-items1').className = "";
+        document.getElementById('remove-items2').className = "";
+        document.getElementById('remove-items3').className = "";
+      });
+
+      document.getElementById('remove').addEventListener('click', function () {
+        menu.remove();
+        this.className = "hide";
+        document.getElementById('remove-items1').className = "hide";
+        document.getElementById('remove-items2').className = "hide";
+        document.getElementById('remove-items3').className = "hide";
+      });
+
+      document.getElementById('remove-items1').addEventListener('click', function () {
+        menu.items[this.dataset.item].remove();
+        this.className = "hide";
+      });
+      document.getElementById('remove-items2').addEventListener('click', function () {
+        menu.items[this.dataset.item].remove();
+        this.className = "hide";
+
+      });
+      document.getElementById('remove-items3').addEventListener('click', function () {
+        menu.items[this.dataset.item].remove();
+        this.className = "hide";
+      });
     }
 
   </script>
 </head>
 <body>
-
+<nav class="nav"></nav>
+<button id="render">Render</button>
+<button id="remove">Remove</button>
+<button id="remove-items1" data-item="0">Remove li-1</button>
+<button id="remove-items2" data-item="1">Remove li-2</button>
+<button id="remove-items3" data-item="2">Remove li-3</button>
+<!--код не адаптивен, это понятно дело, просто начал чот сложности накручивать, в итоге думаю лучшебы вообще кнопки не рисовал-->
 </body>
 </html>

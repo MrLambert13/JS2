@@ -20,7 +20,7 @@ Container.prototype.remove = function () {
   var removeElement = document.getElementById(this.id);
 
   // Его родителю говорим удалить дочерний элемент, полученный выше
-  removeElement.parentElement.removeChild(removeElement);
+  removeElement.parentNode.removeChild(removeElement);
 }
 
 function Menu(id, className, items) {
@@ -44,13 +44,22 @@ Menu.prototype.render = function () {
   });
 
   return ul;
+};
+
+//второе задание
+function SubMenu(id, className, items) {
+  Menu.call(this, id, className, items);
 }
 
-function MenuItem(href, label) {
+SubMenu.prototype = Object.create(Menu.prototype);
+
+
+function MenuItem(href, label, subItems) {
   Container.call(this, '', 'menu-item');
 
   this.href = href;
   this.label = label;
+  this.subItems = subItems;
 }
 
 MenuItem.prototype = Object.create(Container.prototype);
@@ -65,13 +74,20 @@ MenuItem.prototype.render = function () {
   li.appendChild(a);
   li.className = this.className;
 
-  return li;
-}
+  //для 2го задания
+  this.subItems.forEach(function (item) {
+    if (item instanceof SubMenu) {
+      li.appendChild(item.render());
+    }
+  });
 
-Container.prototype.remove = function () {
+  return li;
+};
+
+MenuItem.prototype.remove = function () {
   //получаем ссылку которую нужно удалить
   var removeElement = document.querySelector(`[href='${this.href}']`);
 
   // удаляем его вместе с пунктом li
-  removeElement.parentElement.remove();
-}
+  removeElement.parentNode.remove();
+};
