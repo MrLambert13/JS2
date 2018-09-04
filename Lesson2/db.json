@@ -56,13 +56,21 @@
     {
       "id": 5,
       "label": "Фотогаллерея",
-      "href": "/gallery"
+      "href": "gallery.html"
     },
 
     {
       "id": 6,
       "label": "FAQ",
       "href": "/faq"
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1,
+      "path_prev": "/gallery/prev1",
+      "path_img_url": "",
+
     }
   ]
 }
