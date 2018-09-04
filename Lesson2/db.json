@@ -1,8 +1,62 @@
 {
   "items": [
-    {"id": 1, "label": "Личный кабинет", "href": "/accounts"},
-    {"id": 2, "label": "Каталог", "href": "/catalog"},
-    {"id": 3, "label": "Промоакции", "href": "/promo"},
-    {"id": 4, "label": "О нас", "href": "/aboutus"}
+    {
+      "id": 1,
+      "label": "Личный кабинет",
+      "href": "/accounts",
+      "sub": [
+        {
+          "id": 1,
+          "label": "Профиль",
+          "href": "/profile"
+        },
+        {
+          "id": 2,
+          "label": "Настройки",
+          "href": "/settings"
+        },
+        {
+          "id": 3,
+          "label": "Выход",
+          "href": "/Logout"
+        }
+      ]
+    },
+
+    {
+      "id": 2,
+      "label": "Каталог",
+      "href": "/catalog"
+    },
+
+    {
+      "id": 3,
+      "label": "Промоакции",
+      "href": "/promo"
+    },
+
+    {
+      "id": 4,
+      "label": "О нас",
+      "href": "/aboutus",
+      "sub": [
+        {
+          "id": 1,
+          "label": "Контакты",
+          "href": "/contacts"
+        },
+        {
+          "id": 2,
+          "label": "Адреса",
+          "href": "/adress"
+        }
+      ]
+    },
+
+    {
+      "id": 5,
+      "label": "FAQ",
+      "href": "/faq"
+    }
   ]
 }
