@@ -22,19 +22,16 @@
         }
       ]
     },
-
     {
       "id": 2,
       "label": "Каталог",
       "href": "/catalog"
     },
-
     {
       "id": 3,
       "label": "Промоакции",
       "href": "/promo"
     },
-
     {
       "id": 4,
       "label": "О нас",
@@ -52,13 +49,11 @@
         }
       ]
     },
-
     {
       "id": 5,
       "label": "Фотогаллерея",
       "href": "gallery.html"
     },
-
     {
       "id": 6,
       "label": "FAQ",
@@ -68,9 +63,33 @@
   "gallery": [
     {
       "id": 1,
-      "path_prev": "/gallery/prev1",
-      "path_img_url": "",
-
+      "path_prev": "/gallery/prev1.jpg",
+      "path_img_url": "/gallery/cat.jpg"
+    },
+    {
+      "id": 2,
+      "path_prev": "/gallery/prev2.jpg",
+      "path_img_url": "/gallery/cat_crazy.jpg"
+    },
+    {
+      "id": 3,
+      "path_prev": "/gallery/prev3.jpg",
+      "path_img_url": "/gallery/cat_O_o.jpg"
+    },
+    {
+      "id": 4,
+      "path_prev": "/gallery/prev4.jpg",
+      "path_img_url": "/gallery/cat_tongue.jpg"
+    },
+    {
+      "id": 5,
+      "path_prev": "/gallery/prev5.jpg",
+      "path_img_url": "/gallery/cat_white.jpg"
+    },
+    {
+      "id": 6,
+      "path_prev": "/gallery/prev6.jpg",
+      "path_img_url": "/gallery/cat_with_bug.jpg"
     }
   ]
 }
