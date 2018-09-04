@@ -1,5 +1,10 @@
 "use strict";
 
+/**
+ * Класс галареи, который создает под превью див, само превью в виде <img> вставляет в тег <a>
+ * @param path_prev {string} путь к картинке превьюшке
+ * @param path_img_url {string} путь к полноразмерной картинке
+ */
 function Gallery(path_prev, path_img_url) {
   var pathPrev;
   var pathImg;
