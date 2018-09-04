@@ -10,30 +10,12 @@ window.onload = function () {
 
         items = items.map(function (item) {
           if (item.sub) {
-
-            /////////////для проверки!!!
-            var b = new MenuItem(item.href, item.label, [
-                new SubMenu('submenu', 'submenu', [
-                  item.sub.forEach(function (elem) {
-                    return new MenuItem(elem.href, elem.label);
-                  })
-                ])
-              ]
-            );
-            console.log(b);
-            ///////////////////////
-
             return new MenuItem(item.href, item.label, [
-                new SubMenu('submenu', 'submenu', [
-                  item.sub.forEach(function (elem) {
-                    ////////////для проверки!!!
-                    var a =  new MenuItem(elem.href, elem.label);
-                    console.log(a);
-                    ////////////////////////////
-
+                new SubMenu('submenu', 'submenu',
+                  item.sub.map(function (elem) {
                     return new MenuItem(elem.href, elem.label);
                   })
-                ])
+                )
               ]
             );
           } else {
@@ -41,7 +23,6 @@ window.onload = function () {
           }
         });
 
-        console.log(items);
         var menu = new Menu('menu', 'menu', items);
 
         document.body.appendChild(menu.render());
