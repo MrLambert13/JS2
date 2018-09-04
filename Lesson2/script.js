@@ -8,7 +8,7 @@ window.onload = function () {
       if (xhr.readyState === XMLHttpRequest.DONE){
         var items = JSON.parse(xhr.responseText);
         items = items.map(function (item) {
-          return new MenuItem(item.href, item.label,[]);
+          return new MenuItem(item.href, item.label);
         });
         var menu = new Menu('menu', 'menu', items);
 
