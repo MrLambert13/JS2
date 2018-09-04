@@ -59,7 +59,9 @@ function MenuItem(href, label, subItems) {
 
   this.href = href;
   this.label = label;
-  this.subItems = subItems;
+  if (this.subItems) {
+    this.subItems = subItems;
+  }
 }
 
 MenuItem.prototype = Object.create(Container.prototype);
@@ -75,11 +77,13 @@ MenuItem.prototype.render = function () {
   li.className = this.className;
 
   //для 2го задания
-  this.subItems.forEach(function (item) {
-    if (item instanceof SubMenu) {
-      li.appendChild(item.render());
-    }
-  });
+  if (this.subItems) {
+    this.subItems.forEach(function (item) {
+      if (item instanceof SubMenu) {
+        li.appendChild(item.render());
+      }
+    });
+  }
 
   return li;
 };
