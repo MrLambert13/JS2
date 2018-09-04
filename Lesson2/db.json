@@ -1,0 +1,12 @@
+{
+  "users": [
+    {"id": 1, "name": "Vasya"},
+    {"id": 2, "name": "Kolya"}
+  ],
+  "items": [
+    {"id": 1, "label": "Home", "href": "/"},
+    {"id": 2, "label": "News", "href": "/news"},
+    {"id": 3, "label": "Photo", "href": "/news"},
+    {"id": 4, "label": "Фищге", "href": "/news"}
+  ]
+}
