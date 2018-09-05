@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>isPolindrome</title>
+</head>
+<body>
+
+<script>
+
+  function isPolindrome(str) {
+    let elem = str.replace(/\W/g, '').toLowerCase();
+    console.log(elem);
+    for (let i = 0; i < elem.length; i++) {
+      if (elem[i] === elem[elem.length - 1 - i]) {
+        continue;
+      } else {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  console.log(isPolindrome('A car, a man, a maraca'))
+
+</script>
+</body>
+</html>
