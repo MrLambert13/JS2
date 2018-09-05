@@ -8,20 +8,30 @@
 
 <script>
 
-  function isPolindrome(str) {
-    let elem = str.replace(/\W/g, '').toLowerCase();
-    console.log(elem);
-    for (let i = 0; i < elem.length; i++) {
-      if (elem[i] === elem[elem.length - 1 - i]) {
-        continue;
-      } else {
-        return false;
-      }
+  function isPolindrome(s) {
+    s=s.replace(/\W/g,'').toLowerCase();
+    for (let i = 0; i<s.length; i++) {
+      if(s[i] === s[s.length-1-i]) continue;
+      return false
     }
-    return true;
-  };
+    return true
+  }
 
-  console.log(isPolindrome('A car, a man, a maraca'))
+  function isPolindrome2(s) {
+    s = s.replace(/\W/g,'').toLowerCase();
+    let q = s.length;
+    return s.includes(s.substring(0,q/2).split('').reverse().join(''))
+  }
+
+  function isPolindrome3(s) {
+    s = s.replace(/\W/g,'').toLowerCase();
+    let q = s.length;
+    return s.includes(s.substring(0,q/2).split('').reverse().join(''))
+  }
+
+  console.log(isPolindrome('A car, a man, a maraca'));
+  console.log(isPolindrome2('carac'));
+  console.log(isPolindrome3('carrac'));
 
 </script>
 </body>
