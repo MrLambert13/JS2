@@ -11,7 +11,7 @@
   //долго пытался сравнивать по пол строки, пока не осенило что можно целиком :DDD
   function isPolindrome(s) {
     s = s.replace(/\W/g,'').toLowerCase();
-    return s.split('') == s.split('').reverse().join('')
+    return s == s.split('').reverse().join('')
   }
 
   console.log(isPolindrome('A car, a man, a maraca'));
