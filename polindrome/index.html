@@ -8,15 +8,19 @@
 
 <script>
   "use strict";
+
   //долго пытался сравнивать по пол строки, пока не осенило что можно целиком :DDD
+
   function isPolindrome(s) {
     s = s.replace(/\W/g,'').toLowerCase();
-    return s == s.split('').reverse().join('')
+    return s == [...s].reverse().join('')
   }
 
   console.log(isPolindrome('A car, a man, a maraca'));
   console.log(isPolindrome('level'));
   console.log(isPolindrome('levqel'));
+
+/*
 
   function isPolindrome7(s) {
     s=s.replace(/\W/g,'').toLowerCase();
@@ -38,6 +42,7 @@
     return s.endsWith(s.substring(0,s.length/2).split('').reverse().join(''))
   }
 
+*/
 
 </script>
 </body>
