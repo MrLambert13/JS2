@@ -63,7 +63,9 @@ const params = {
     elem.classList.remove('warning');
 
     //проверяем условие
-    return this.nameRegExp.test(elem.value)
+    if (this.nameRegExp.test(elem.value)) {
+      return true; //TODO
+    }
 
     //красная рамка у input
     elem.classList.add('warning');
@@ -84,9 +86,10 @@ const params = {
     elem.classList.remove('warning');
 
     //проверяем условие
-    if (elem.value.length === 11 && Number.isInteger(+elem.value)) {
+    if (this.telRegExp.test(elem.value)) {
       return true;
     }
+
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
@@ -96,16 +99,16 @@ const params = {
   },
 
   /**
-   * Валидация поля ввода пароля, при неверном вводе показать подсказку и подчеркнуть поле красным
+   * Валидация поля ввода E-mail, при неверном вводе показать подсказку и подчеркнуть поле красным
    * @return {boolean} true если всё верно, false если нет
    */
   passContainerCheck() {
-    const elem = this.elementForm.querySelector('[name=password]');
+    const elem = this.elementForm.querySelector('[name=email]');
     //очищаем подскази и выделение перед проверкой
     this.removeHint(elem);
     elem.classList.remove('warning');
     //проверяем условие
-    if (elem.value.length > 4 && elem.value.length < 51) {
+    if (this.emailRegExp.test(elem.value)) {
       return true;
     }
     //красная рамка у input
@@ -117,23 +120,17 @@ const params = {
   },
 
   /**
-   * Валидация поля повтора пароля, при неверном вводе показать подсказку и подчеркнуть поле красным
-   * @param {boolean} passIsTrue - Если пароль прошел валидацию, проверяем повтор пароля, иначе сразу подчеркиваем
+   * Валидация текстового поля, при неверном вводе показать подсказку и подчеркнуть поле красным
    * @return {boolean} true если всё верно, false если нет
    */
-  passConfirmContainerCheck(passIsTrue) {
+  passConfirmContainerCheck() {
     const elem = this.elementForm.querySelector('[name=passwordConfirm]');
     //очищаем подскази и выделение перед проверкой
     this.removeHint(elem);
     elem.classList.remove('warning');
     //проверяем верно ли введен пароль
-    if (passIsTrue) {
-      //получаем что введено в пароль
-      const pass = this.elementForm.querySelector('[name=password]');
-      //проверяем условие
-      if (elem.value === pass.value) {
-        return true;
-      }
+    if (this.textRegExp.test(elem.value)) {
+      return true;
     }
     //красная рамка у input
     elem.classList.add('warning');
