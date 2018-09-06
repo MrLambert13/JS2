@@ -18,7 +18,7 @@ const params = {
   telHint: 'Телефон подчиняется шаблону +7(000)000-0000',
   telRegExp: /^\+\d\(\d{3}\)\d{3}-\d{4}$/,
   emailHint: 'E-mail выглядит как mymail@mail.ru, или my.mail@mail.ru, или my-mail@mail.ru',
-  emailRegExp: /^\w{2}([\.-]*)\w{4}@mail\.ru$/, //TODO RegExp
+  emailRegExp: /^[a-z]{2}[\.-]?[a-z]{4}@mail.ru$/,
   textHint: 'Текст произвольный, но хотя бы 1 символ',
   textRegExp: /\w/,
   elementForm: document.querySelector('form.my-form'),
@@ -64,14 +64,12 @@ const params = {
 
     //проверяем условие
     if (this.nameRegExp.test(elem.value)) {
-      return true; //TODO
+      return true;
     }
-
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
     elem.parentElement.appendChild(this.createHint(this.nameHint));
-    return; //TODO
   },
 
   /**
@@ -94,8 +92,6 @@ const params = {
     elem.classList.add('warning');
     //создание сообщения под input
     elem.parentElement.appendChild(this.createHint(this.telHint));
-
-    return;
   },
 
   /**
@@ -115,8 +111,6 @@ const params = {
     elem.classList.add('warning');
     //создание сообщения под input
     elem.parentElement.appendChild(this.createHint(this.emailHint));
-
-    return;
   },
 
   /**
@@ -136,7 +130,6 @@ const params = {
     elem.classList.add('warning');
     //создание сообщения под input
     elem.parentElement.appendChild(this.createHint(this.textHint));
-    return;
   },
 
   /**
@@ -165,5 +158,4 @@ const params = {
 };
 
 //вещаем слушателя событий на отправку формы
-console.log(params.elementForm);
 params.elementForm.addEventListener('submit', (event) => params.mainCheck(event));
