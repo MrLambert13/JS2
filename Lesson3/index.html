@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Lesson3</title>
   <script src="script.js"></script>
-  <script src="validation.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -35,21 +34,23 @@
 
   <div class="block-input form-wrap">
     <form class="my-form" action="">
-      <input type="text" name="name" class="" placeholder="Имя">
-      <input type="text" name="phone" class="" placeholder="Телефон">
-      <input type="email" name="email" class="" placeholder="E-mail">
-      <textarea type="text" name="text" class="text" placeholder="Your mind"></textarea>
+      <div>
+        <input type="text" name="name" class="" placeholder="Имя">
+      </div>
+      <div>
+        <input type="text" name="phone" class="" placeholder="Телефон">
+      </div>
+      <div>
+        <input type="email" name="email" class="" placeholder="E-mail">
+      </div>
+      <div>
+        <textarea type="text" name="text" class="text" placeholder="Your mind"></textarea>
+      </div>
       <button type="submit" class="btn-primary" id="buttonSubmit">Отправить</button>
     </form>
   </div>
 
-  <div class="block-validation">
-    <p>
-
-    </p>
   </div>
-
-</div>
 
 <!-- Создать форму обратной связи с полями: Имя, Телефон, e-mail, текст, кнопка «Отправить».
 ** - При нажатии на кнопку «Отправить» произвести валидацию полей следующим образом:
@@ -62,6 +63,7 @@
 ** - Текст произвольный;**
 ** - В случае не прохождения валидации одним из полей необходимо выделять это поле красной рамкой и сообщать пользователю об ошибке.**-->
 
+<script src="validation.js"></script>
 
 </body>
 </html>

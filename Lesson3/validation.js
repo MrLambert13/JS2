@@ -14,14 +14,14 @@
  */
 const params = {
   nameHint: 'Имя содержит только буквы.',
-  nameRegExp: /[A-Za-zА-Яа-яёЁ]/,
+  nameRegExp: /^[A-Za-zА-Яа-яёЁ\s]+$/,
   telHint: 'Телефон подчиняется шаблону +7(000)000-0000',
-  telRegExp: /+\d\(\d{3}\)\d{3}-\d{d}/,
+  telRegExp: /^\+\d\(\d{3}\)\d{3}-\d{4}$/,
   emailHint: 'E-mail выглядит как mymail@mail.ru, или my.mail@mail.ru, или my-mail@mail.ru',
-  emailRegExp: /someRegExp/, //TODO RegExp
+  emailRegExp: /^\w{2}([\.-]*)\w{4}@mail\.ru$/, //TODO RegExp
   textHint: 'Текст произвольный, но хотя бы 1 символ',
   textRegExp: /\w/,
-  elementForm: document.querySelector('form'),
+  elementForm: document.querySelector('form.my-form'),
 
   /**
    * Создание подсказки
@@ -102,7 +102,7 @@ const params = {
    * Валидация поля ввода E-mail, при неверном вводе показать подсказку и подчеркнуть поле красным
    * @return {boolean} true если всё верно, false если нет
    */
-  passContainerCheck() {
+  emailContainerCheck() {
     const elem = this.elementForm.querySelector('[name=email]');
     //очищаем подскази и выделение перед проверкой
     this.removeHint(elem);
@@ -114,7 +114,7 @@ const params = {
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
-    elem.parentElement.appendChild(this.createHint(this.passHint));
+    elem.parentElement.appendChild(this.createHint(this.emailHint));
 
     return;
   },
@@ -123,8 +123,8 @@ const params = {
    * Валидация текстового поля, при неверном вводе показать подсказку и подчеркнуть поле красным
    * @return {boolean} true если всё верно, false если нет
    */
-  passConfirmContainerCheck() {
-    const elem = this.elementForm.querySelector('[name=passwordConfirm]');
+  textContainerCheck() {
+    const elem = this.elementForm.querySelector('[name=text]');
     //очищаем подскази и выделение перед проверкой
     this.removeHint(elem);
     elem.classList.remove('warning');
@@ -135,39 +135,35 @@ const params = {
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
-    elem.parentElement.appendChild(this.createHint(this.passConfirmHint));
+    elem.parentElement.appendChild(this.createHint(this.textHint));
     return;
   },
 
   /**
-   * Главная фунеция объекта
+   * Главная функция объекта
    * @param {object} event - событие которое произошло при нажатии на кнопку
    */
+
   mainCheck(event) {
     //проверяем имя
-    let nameCheck = this.nameContainerCheck();
+    var nameCheck = this.nameContainerCheck();
     //проверяем телефон
-    let telCheck = this.telContainerCheck();
+    var telCheck = this.telContainerCheck();
     //проверяем пароль
-    let passCheck = this.passContainerCheck();
+    var emailCheck = this.emailContainerCheck();
     //проверяем повтор пароля
-    let passConfirmCheck = this.passConfirmContainerCheck(passCheck);
+    var textConfirmCheck = this.textContainerCheck();
 
     //если все проверки верны заканчиваем функцию и продолжаем отправку формы, иначе останавливаем действие браузера по умолчанию
     if (nameCheck && telCheck &&
-      passCheck && passConfirmCheck) {
+      emailCheck && textConfirmCheck) {
       return;
     } else {
       event.preventDefault();
-
     }
   },
 };
 
 //вещаем слушателя событий на отправку формы
+console.log(params.elementForm);
 params.elementForm.addEventListener('submit', (event) => params.mainCheck(event));
-
-for (const param of this.mapValues[row]) {
-  value += param;
-}
-return value === "XXX" || value === "000";
