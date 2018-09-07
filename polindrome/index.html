@@ -11,14 +11,24 @@
 
   //долго пытался сравнивать по пол строки, пока не осенило что можно целиком :DDD
 
-  function isPolindrome(s) {
+  function isPalindrome2(s) {
     s = s.replace(/\W/g,'').toLowerCase();
     return s == [...s].reverse().join('')
   }
 
-  console.log(isPolindrome('A car, a man, a maraca'));
-  console.log(isPolindrome('level'));
-  console.log(isPolindrome('levqel'));
+  function isPalindrome3(s) {
+    return [...s.replace(/\W/g,'').toLowerCase()].forEach((e,i,s)=>e==s.pop());
+  }
+
+  function isPalindrome(s) {
+    s=[...s.replace(/\W/g,'').toLowerCase()];
+    s.forEach(e => e == s.pop());
+  }
+
+  console.log(isPalindrome3('aweewa'));
+  // console.log(isPalindrome('A car, a man, a maraca'));
+  // console.log(isPalindrome('level'));
+  // console.log(isPalindrome('levqel'));
 
 /*
 
