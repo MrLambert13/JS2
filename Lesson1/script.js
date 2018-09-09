@@ -59,7 +59,7 @@ function MenuItem(href, label, subItems) {
 
   this.href = href;
   this.label = label;
-    this.subItems = subItems;
+  this.subItems = subItems;
 }
 
 MenuItem.prototype = Object.create(Container.prototype);
