@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>isPolindrome</title>
+</head>
+<body>
+
+<script>
+  "use strict";
+
+  //долго пытался сравнивать по пол строки, пока не осенило что можно целиком :DDD
+
+  function isPalindrome2(s) {
+    s = s.replace(/\W/g,'').toLowerCase();
+    return s == [...s].reverse().join('')
+  }
+
+  function isPalindrome3(s) {
+    return [...s.replace(/\W/g,'').toLowerCase()].forEach((e,i,s)=>e==s.pop());
+  }
+
+  function isPalindrome(s) {
+    s=[...s.replace(/\W/g,'').toLowerCase()];
+    s.forEach(e => e == s.pop());
+  }
+
+  console.log(isPalindrome3('aweewa'));
+  // console.log(isPalindrome('A car, a man, a maraca'));
+  // console.log(isPalindrome('level'));
+  // console.log(isPalindrome('levqel'));
+
+/*
+
+  function isPolindrome7(s) {
+    s=s.replace(/\W/g,'').toLowerCase();
+    for (let i = 0; i<s.length; i++) {
+      if(s[i] === s[s.length-1-i]) continue;
+      return false
+    }
+    return true
+  }
+
+  function isPolindrome8(s) {
+    s = s.replace(/\W/g,'').toLowerCase();
+    let q = s.length;
+    return s.includes(s.substring(0,q/2).split('').reverse().join(''))
+  }
+
+  function isPolindrome9(s) {
+    s = s.replace(/\W/g,'').toLowerCase();
+    return s.endsWith(s.substring(0,s.length/2).split('').reverse().join(''))
+  }
+
+*/
+
+</script>
+</body>
+</html>
