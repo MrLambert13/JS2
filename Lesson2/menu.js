@@ -12,7 +12,7 @@ Container.prototype.render = function () {
   div.id = this.id;
 
   return div;
-}
+};
 
 
 Container.prototype.remove = function () {
@@ -21,7 +21,7 @@ Container.prototype.remove = function () {
 
   // Его родителю говорим удалить дочерний элемент, полученный выше
   removeElement.parentNode.removeChild(removeElement);
-}
+};
 
 function Menu(id, className, items) {
   Container.call(this, id, className);
@@ -59,7 +59,7 @@ function MenuItem(href, label, subItems) {
 
   this.href = href;
   this.label = label;
-    this.subItems = subItems;
+  this.subItems = subItems;
 }
 
 MenuItem.prototype = Object.create(Container.prototype);
