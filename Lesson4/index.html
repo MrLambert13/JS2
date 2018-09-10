@@ -3,19 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>jQuery</title>
-  <script src="JQuery.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="JQuery.js"></script>
   <style>
     .container {
       width: 75%;
       /*background-color: #89cea2;*/
     }
-
     .tabs {
       display: flex;
       justify-content: flex-start;
     }
-
     .tab {
       padding: 15px 5px;
       border-top-left-radius: 15px;
@@ -26,7 +24,7 @@
     .tab:hover {
       background-color: #ccd73e;
     }
-    .tab-active {
+    .active {
       background-color: #ccd73e;
     }
     .text {
@@ -38,14 +36,13 @@
 </head>
 <body>
 <div class="container">
-  <div class="tabs">
-    <div id="idx1" class="tab">Первая вкладка</div>
-    <div id="idx2" class="tab">Вторая вкладка</div>
-    <div id="idx3" class="tab">Третья вкладка</div>
-    <div id="idx4" class="tab">Четвертая вкладка</div>
+  <div id="tabs" class="tabs">
+    <div data-id="1" class="tab">Первая вкладка</div>
+    <div data-id="2" class="tab">Вторая вкладка</div>
+    <div data-id="3" class="tab">Третья вкладка</div>
+    <div data-id="4" class="tab">Четвертая вкладка</div>
   </div>
   <div class="text">
-
   </div>
 </div>
 </body>
