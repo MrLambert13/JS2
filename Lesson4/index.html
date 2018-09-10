@@ -10,10 +10,12 @@
       width: 75%;
       /*background-color: #89cea2;*/
     }
+
     .tabs {
       display: flex;
       justify-content: flex-start;
     }
+
     .tab {
       padding: 15px 5px;
       border-top-left-radius: 15px;
@@ -21,17 +23,21 @@
       background-color: #3ace27;
       border: 1px solid #fff;
     }
+
     .tab:hover {
       background-color: #ccd73e;
     }
+
     .active {
       background-color: #ccd73e;
     }
+
     .text {
       height: 300px;
       border: 3px solid #3f8c3a;
       background-color: #fff;
     }
+
   </style>
 </head>
 <body>
@@ -44,6 +50,27 @@
   </div>
   <div class="text">
   </div>
+</div>
+
+<div class="feedback">
+    <form action="">
+      <div>
+        <input type="text" name="name" class="" placeholder="Имя">
+      </div>
+      <div>
+        <input type="text" name="phone" class="" placeholder="Телефон">
+      </div>
+      <div>
+        <input type="email" name="email" class="" placeholder="E-mail">
+      </div>
+      <div>
+        <input type="text" name="city" class="" placeholder="Your city">
+      </div>
+      <div>
+        <textarea type="text" name="text" class="text" placeholder="Your mind"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="buttonSubmit">Отправить</button>
+    </form>
 </div>
 </body>
 </html>
