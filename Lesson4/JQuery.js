@@ -60,7 +60,7 @@ function getJsonText(url, idTarget, callback) {
     });
 
     //третье задание
-    var autocompleteInput = $('#autocomplete')[0];
+    var autocompleteInput = $('#autocomplete');
 
     $.ajax({
       url: 'http://localhost:3000/city',
