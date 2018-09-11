@@ -55,19 +55,21 @@
 <div class="feedback">
     <form action="">
       <div>
-        <input type="text" name="name" class="" placeholder="Имя">
+        <input type="text" name="name" placeholder="Имя">
       </div>
       <div>
-        <input type="text" name="phone" class="" placeholder="Телефон">
+        <input type="text" name="phone" placeholder="Телефон">
       </div>
       <div>
-        <input type="email" name="email" class="" placeholder="E-mail">
+        <input type="email" name="email" placeholder="E-mail">
       </div>
       <div>
-        <input type="text" name="city" class="" placeholder="Your city">
+        <select name="city">
+          <option value="null">Выберите город</option>
+        </select>
       </div>
       <div>
-        <textarea type="text" name="text" class="text" placeholder="Your mind"></textarea>
+        <textarea name="text" class="text" placeholder="Your mind"></textarea>
       </div>
       <button type="submit" class="btn-primary" id="buttonSubmit">Отправить</button>
     </form>

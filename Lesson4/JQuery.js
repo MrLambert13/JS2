@@ -5,14 +5,13 @@
  * @param idTarget {int} - id обекта который ищем на json сервере
  * @param callback {function} - фунеция которую будем выполнять после выполнения запроса
  */
-function getJsonText(idTarget, callback) {
+function getJsonText(url, idTarget, callback) {
   var result;
   $.ajax({
-    url: 'http://localhost:3000/texts',
+    url: url,
     dataType: "json",
     success: function (data) {
       $.each(data, function (i, val) {
-        //ес
           if (val.id === idTarget) {
             result = val.text;
           }
@@ -24,7 +23,10 @@ function getJsonText(idTarget, callback) {
 }
 
 (function ($) {
+
+
   $(function () {
+    //Первое задание
     //вешаем события на все вкладки
     $('#tabs').on('click', '.tab', function (event) {
       //для всех вкладок удаляем класс который отвечает за "активную" вкладку
@@ -35,11 +37,31 @@ function getJsonText(idTarget, callback) {
       event.target.classList.add('active');
 
       //Заполняем содержимое div в соответствии с выбранной вкладкой
-      getJsonText(+event.target.dataset.id, function (result) {
+      getJsonText('http://localhost:3000/texts', +event.target.dataset.id, function (result) {
         $('.text')[0].innerText = result;
       });
+    });
 
+    //второе задание
+    //получаем нужный элемент DOM
+    var cityInput = $('select[name="city"]')[0];
+    //получаем список городов дл заполнени
+    $.ajax({
+      url: 'http://localhost:3000/city',
+      dataType: "json",
+      //заполнем выпадающий список данными с json сервера
+      success: function (data) {
+        $.each(data, function (i, val) {
+          var opt = document.createElement('option');
+          $(opt).attr('value', val).text(val);
+          cityInput.appendChild(opt);
+        });
+      }
+    });
+    $(cityInput).click(function (event) {
+      console.log($(cityInput).val());
     });
   });
+
 })(jQuery);
 
