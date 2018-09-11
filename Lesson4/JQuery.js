@@ -69,7 +69,7 @@ function getJsonText(url, idTarget, callback) {
         $(autocompleteInput).autocompleteArray(data,
           {
             delay: 10,
-            minChars: 1,
+            minChars: 3,
             autoFill: true,
             maxItemsToShow: 10
           }
