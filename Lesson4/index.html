@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>jQuery</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="autocomplete/jquery.autocomplete.js"></script>
   <script src="JQuery.js"></script>
   <style>
     .container {
@@ -53,26 +54,17 @@
 </div>
 
 <div class="feedback">
-    <form action="">
-      <div>
-        <input type="text" name="name" placeholder="Имя">
-      </div>
-      <div>
-        <input type="text" name="phone" placeholder="Телефон">
-      </div>
-      <div>
-        <input type="email" name="email" placeholder="E-mail">
-      </div>
-      <div>
-        <select name="city">
-          <option value="null">Выберите город</option>
-        </select>
-      </div>
-      <div>
-        <textarea name="text" class="text" placeholder="Your mind"></textarea>
-      </div>
-      <button type="submit" class="btn-primary" id="buttonSubmit">Отправить</button>
-    </form>
+  <form action="">
+    <div>
+      <select name="city">
+        <option value="" disabled selected>Выберите город</option>
+      </select>
+    </div>
+    <div>
+      <input type="text" autocomplete="on" id="autocomplete" name="cityAutocomplete" placeholder="Введите город" >
+    </div>
+  </form>
 </div>
+
 </body>
 </html>

@@ -58,10 +58,25 @@ function getJsonText(url, idTarget, callback) {
         });
       }
     });
-    $(cityInput).click(function (event) {
-      console.log($(cityInput).val());
-    });
-  });
 
+    //третье задание
+    var autocompleteInput = $('#autocomplete')[0];
+
+    $.ajax({
+      url: 'http://localhost:3000/city',
+      dataType: "json",
+      success: function (data) {
+        $(autocompleteInput).autocompleteArray(data,
+          {
+            delay: 10,
+            minChars: 1,
+            autoFill: true,
+            maxItemsToShow: 10
+          }
+        );
+      }
+    });
+
+  });
 })(jQuery);
 
