@@ -4,12 +4,29 @@
   <meta charset="UTF-8">
   <title>Form</title>
   <script src="form.js"></script>
+  <style>
+    .invalid {
+      border: 1px solid red;
+    }
+    .form-field {
+      clear: both;
+      display: block;
+      min-width: 200px;
+      padding-bottom: 10px;
+    }
+    .form-field input {
+    }
+    .form-field textarea {
+      clear: both;
+      display: block;
+    }
+  </style>
 </head>
 <body>
 <form method="get" name="myForm">
-  <label class="form-field" for="name">Name: <input type="text" id="name"> </label>
-  <label class="form-field" for="phone">Phone: <input type="text" id="phone"> </label>
-  <label class="form-field" for="email">E-mail: <input type="text" id="email"> </label>
+  <label class="form-field" for="name">Name: <input type="text" data-validation-rule="name" id="name"> </label>
+  <label class="form-field" for="phone">Phone: <input type="text" data-validation-rule="phone" id="phone"> </label>
+  <label class="form-field" for="email">E-mail: <input type="text" data-validation-rule="email" id="email"> </label>
   <label class="form-field" for="message">Message: <textarea rows="10" cols="100" name="message" id="message"> </textarea></label>
 
   <input type="submit" id="submit" value="send">
