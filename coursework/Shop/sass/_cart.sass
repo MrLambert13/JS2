@@ -1,0 +1,193 @@
+$rowheight: 120px
+$rowtextcolor: #656565
+
+.row
+  border-bottom: 1px solid #eaeaea
+  color: $rowtextcolor
+  padding: 20px 3px
+
+
+.headrow
+  padding: 20px 3px
+
+  color: #222222
+  font-size: 13px
+  font-weight: 700
+  line-height: 12px
+  text-transform: uppercase
+
+
+.img-scale
+  transition: transform 0.5s
+  &:hover
+    transform: scale(1.5)
+
+
+.detail
+  flex: 4
+  &__prodName
+    color: #222222
+    font-size: 13px
+    font-weight: 600
+    text-transform: uppercase
+    line-height: 11px
+    margin: 15px 0
+  &__prodChar
+    color: #575757
+    font-size: 13px
+    font-weight: 600
+    line-height: 21px
+    &-gray
+      color: #6f6e6e
+      font-weight: 300
+  a:hover
+    text-decoration: underline
+
+
+
+.cardPrice
+  text-align: center
+  &__text
+    font-size: 13px
+    font-weight: 600
+    line-height: $rowheight
+
+.quantity
+  justify-content: center
+  &__input
+    width: 57px
+    height: 33px
+    border: 1px solid #eaeaea
+    background-color: #ffffff
+    font-size: 13px
+    font-weight: 400
+    line-height: 33px
+    text-align: center
+    padding: 3px
+
+.ship
+  text-align: center
+  &__text
+    font-size: 13px
+    font-weight: 600
+    line-height: $rowheight
+    text-transform: uppercase
+
+.action
+  text-align: center
+  &__del
+    //display: inline-block
+    //width: 15px
+    //height: 15px
+    //border-radius: 50%
+    color: #c0c0c0
+    line-height: $rowheight
+    &:hover
+      color: #f16d7f
+
+.cardPrice, .quantity, .ship, .subtotal, .action
+  flex: 1
+
+.bd
+  outline: 1px solid #000
+  height: $rowheight
+
+.cartButtons
+  margin: 40px 0
+  &__btn
+    text-align: center
+    height: 53px
+    border: 1px solid #eaeaea
+    background-color: #ffffff
+    padding: 0 40px
+
+    color: #4a4a4a
+    font-size: 14px
+    font-weight: 700
+    text-transform: uppercase
+    line-height: 53px
+    &:hover
+      background-color: #f16d7f
+      color: #ffffff
+
+.adress
+  &__text
+    &-hint
+      color: #000000
+      font-size: 14px
+      font-weight: 300
+      line-height: 36px
+    &-head
+      margin-bottom: 20px
+      color: #222222
+      font-size: 16px
+      font-weight: 700
+      text-transform: uppercase
+      line-height: 13px
+  &__input
+    width: 100%
+    box-sizing: border-box
+    padding: 0 5px
+    height: 48px
+    line-height: 48px
+    border: 1px solid #eaeaea
+    background-color: #ffffff
+    color: #b1b1b1
+    font-size: 13px
+    font-weight: 300
+    margin: 8px 0
+  &__btn
+    margin-top: 20px
+    display: block
+    border: 1px solid #eaeaea
+    background-color: #ffffff
+    text-align: center
+    padding: 13px 15px
+    color: #4a4a4a
+    font-size: 11px
+    font-weight: 700
+    text-transform: uppercase
+    &:hover
+      color: #ffffff
+      background-color: #f16d7f
+.adress, .coupon, .total
+  flex: 1
+
+.coupon
+  margin: 0 30px
+
+.total
+  background-color: #f5f3f3
+  padding: 40px
+  &__container
+  &__text
+    &-sub
+      text-align: right
+      color: #4a4a4a
+      font-size: 11px
+      font-weight: 400
+      text-transform: uppercase
+      margin-bottom: 15px
+    &-grand
+      text-align: right
+      color: #222222
+      font-size: 16px
+      font-weight: 700
+      text-transform: uppercase
+    &-priceRED
+      color: #f16d7f
+  &__hr
+    padding: 20px 0
+    border-bottom: 1px solid #e2e2e2
+  &__check
+    margin-top: 15px
+    display: block
+    text-align: center
+    background-color: #f16d7f
+    padding: 20px 40px
+    color: #ffffff
+    font-size: 16px
+    font-weight: 700
+    text-transform: uppercase
+    &:hover
+      color: #222222
