@@ -2,18 +2,17 @@
 
 var validation = {
   phone: /^\+7\(\d{3}\)\d{3}\-\d{4}$/,
-  email: /^[-._a-z0-9]+@([a-z0-9][-a-z0-9]+\.)+[a-z]{2.6}$/i,
+  email: /^[-._a-z0-9]+@([a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$/i,
   name: /^\w{3,}$/
 };
 
 (function ($) {
   $(function () {
     $('#submit').click(function (event) {
-      $(Object.keys(validation)).each(function (rule) {
+      Object.keys(validation).forEach(function (rule) {
         var fields = $('[data-validation-rule="' + rule + '"]');
-        $(fields).each(function (field) {
-          debugger;
-          (validation[rule].test(field.value) ? $(field).addClass('invalid') : $(field).removeClass('invalid'));
+        $(fields).each(function () {
+          (validation[rule].test(this.value)) ? this.classList.remove('invalid') : this.classList.add('invalid');
         });
       });
       event.preventDefault();
