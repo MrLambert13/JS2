@@ -1,28 +1,33 @@
 <html>
-  <head>
-    <title>Ajax</title>
-    <style>
-      .approved {
-        background-color: aquamarine;
-      }
+<head>
+  <title>Ajax</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <style>
+    .goods {
+      border: 1px solid #000;
+      width: 250px;
+    }
+    .cart {
+      width: 250px;
 
-      .declined {
-        background-color: crimson;
-      }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="cart.js"></script>
-  </head>
-  <body>
-    <div id="goods"></div>
-    <div id="cart"></div>
-
-    <ul>
-      <li class="approved">Comment1</li>
-      <li class="declined">Comment2</li>
-      <li>Comment3 <button>Approve</button><button>Decline</button></li>
-    </ul>
-    <textarea></textarea>
-    <button>Send</button>
-  </body>
+      margin-top: 15px;
+      border: 1px solid #3cce00;
+    }
+    .price__over {
+      color: red;
+    }
+    .flexboth {
+      display: flex;
+      justify-content: space-between;
+      list-style-type: disc;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="cart.js"></script>
+</head>
+<body>
+<div id="goods" class="goods">Список товара:</div>
+<div id="cart" class="cart"></div>
+</body>
 </html>

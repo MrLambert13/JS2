@@ -1,6 +1,7 @@
 function buildCart() {
   // Очищаем корзину
-  $('#cart').empty();
+  $('#cart').empty().text('Корзина:');
+
   // Отправляем запрос на получение списка товаров в корзине
   $.ajax({
     url: 'http://localhost:3000/cart',
@@ -13,15 +14,36 @@ function buildCart() {
 
       // Перебираем товары
       cart.forEach(function(item) {
-        // Создаем товар в списке
+        //контейнер для текста и кнопок
         var $li = $('<li />', {
           text: item.name + '(' + item.quantity + ')',
+          class: 'flexboth',
         });
 
+        // Создаем товар в списке
+        var $div = $('<div />', {
+        });
+
+        //создаем кнопку для уменьшения количества товара
+        var $btnMinus = $('<button />', {
+          text: '-',
+          class: 'minus',
+          'data-id': item.id,
+          'data-quantity': item.quantity,
+        });
+
+        // Создаем кнопку для добавления количества товара
+        var $btnPlus = $('<button />', {
+          text: '+',
+          class: 'plus',
+          'data-id': item.id,
+          'data-quantity': item.quantity,
+        });
+        
         // Создаем кнопку для удаления товара из корзины
-        var $button = $('<button />', {
-          text: 'x',
-          class: 'delete',
+        var $btnDelete = $('<button />', {
+          // text: 'x',
+          class: 'delete far fa-trash-alt',
           'data-id': item.id,
           'data-quantity': item.quantity,
         });
@@ -30,7 +52,12 @@ function buildCart() {
         amount += +item.quantity * +item.price;
 
         // Добавляем все в dom
-        $li.append($button);
+        if (+$btnMinus.attr('data-quantity')>1) {
+          $div.append($btnMinus);
+        }
+        $div.append($btnPlus);
+        $div.append($btnDelete);
+        $li.append($div);
         $ul.append($li);
       });
       // Добавляем все в dom
@@ -56,8 +83,7 @@ function buildGoodsList() {
         });
         // Создаем кнопку для покупки
         var $button = $('<button />', {
-          text: 'Buy',
-          class: 'buy',
+          class: 'buy fas fa-cart-arrow-down',
           'data-id': item.id,
           'data-name': item.name,
           'data-price': item.price,
@@ -90,6 +116,48 @@ function buildGoodsList() {
         type: 'DELETE',
         success: function() {
           // Перерисовываем корзины
+          buildCart();
+        }
+      })
+    });
+
+    // Слушаем нажатия на уменьшение товара в корзине
+    $('#cart').on('click', '.minus', function() {
+      // Получаем id товара, который пользователь хочет удалить
+      var id = $(this).attr('data-id');
+      // Отправляем запрос на удаление
+      $.ajax({
+        url: 'http://localhost:3000/cart/' + id,
+        type: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: JSON.stringify({
+          quantity: +$(this).attr('data-quantity') - 1,
+        }),
+        success: function() {
+          // Перестраиваем корзину
+          buildCart();
+        }
+      })
+    });
+
+    // Слушаем нажатия на увеличение товара в корзине
+    $('#cart').on('click', '.plus', function() {
+      // Получаем id товара, который пользователь хочет удалить
+      var id = $(this).attr('data-id');
+      // Отправляем запрос на удаление
+      $.ajax({
+        url: 'http://localhost:3000/cart/' + id,
+        type: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: JSON.stringify({
+          quantity: +$(this).attr('data-quantity') + 1,
+        }),
+        success: function() {
+          // Перестраиваем корзину
           buildCart();
         }
       })
