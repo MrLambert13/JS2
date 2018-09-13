@@ -14,13 +14,13 @@ function buildCart() {
 
       // Перебираем товары
       cart.forEach(function(item) {
-        //контейнер для текста и кнопок
+        // Создаем товар в списке
         var $li = $('<li />', {
-          text: item.name + '(' + item.quantity + ')',
+          text: '> ' + item.name + '(' + item.quantity + ')',
           class: 'flexboth',
         });
 
-        // Создаем товар в списке
+        //контейнер для кнопок
         var $div = $('<div />', {
         });
 
@@ -79,8 +79,14 @@ function buildGoodsList() {
       cart.forEach(function(item) {
         // Создаем товар в списке
         var $li = $('<li />', {
-          text: item.name + ' ' + item.price + ' rub.',
+          text: '* ' + item.name + ' ' + item.price + ' руб.',
+          class: 'flexboth',
         });
+
+        //контейнер для кнопок
+        var $div = $('<div />', {
+        });
+
         // Создаем кнопку для покупки
         var $button = $('<button />', {
           class: 'buy fas fa-cart-arrow-down',
@@ -90,7 +96,8 @@ function buildGoodsList() {
         });
 
         // Добавляем все в dom
-        $li.append($button);
+        $div.append($button);
+        $li.append($div);
         $ul.append($li);
       });
       // Добавляем все в dom

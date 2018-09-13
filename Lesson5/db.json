@@ -34,25 +34,25 @@
   "cart": [
     {
       "id": "2",
-      "quantity": 6,
+      "quantity": 7,
       "name": "Майки",
       "price": "100"
     },
     {
       "id": "3",
-      "quantity": 1,
+      "quantity": 2,
       "name": "Носки",
       "price": "150"
     },
     {
       "id": "4",
-      "quantity": 2,
+      "quantity": 3,
       "name": "Шапки",
       "price": "567"
     },
     {
       "id": "1",
-      "quantity": 1,
+      "quantity": 2,
       "name": "Трусы",
       "price": "255"
     }
