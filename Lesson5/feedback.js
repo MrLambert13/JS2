@@ -111,18 +111,11 @@ function isFirstFeedback(callback) {
     url: 'http://localhost:3000/feedback/',
     dataType: 'json',
     success: function (data) {
-      // Перебираем отзывы
-      console.log(data);
-      data.forEach(function () {
-        debugger;
-        count++;
-        console.log(count);
-      });
+      count = callback(data);
     },
   });
 
   debugger;
-  return count;
 }
 
 (function ($) {
@@ -138,7 +131,9 @@ function isFirstFeedback(callback) {
     $('body').on('click', '#submit', function () {
       var $newFeedback = $('#newFeedback');
 
-      var numbFeedbacks = isFirstFeedback();
+      var numbFeedbacks = isFirstFeedback(function (response) {
+        return response.length;
+      });
       // Пробуем найти отзывы в db.json
       debugger;
       if (numbFeedbacks === 0) {
