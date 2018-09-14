@@ -41,7 +41,7 @@ function buildNewFeedback() {
 
   // Отправляем запрос на получение списка отзывов для модерации
   $.ajax({
-    url: 'http://localhost:3000/feedback/',
+    url: 'http://localhost:3000/feedback',
     dataType: 'json',
     success: function (data) {
 
@@ -105,75 +105,99 @@ function buildDeclined() {
   })
 };
 
-function isFirstFeedback(callback) {
+/**
+ * Функция запроса, которая подсчитывает количество отзывов
+ * @param callback {function} функция в которой будет обрабатываться полученное количество
+ */
+function responseFeedback(callback) {
   var count = 0;
   $.ajax({
-    url: 'http://localhost:3000/feedback/',
+    url: 'http://localhost:3000/feedback',
     dataType: 'json',
     success: function (data) {
-      count = callback(data);
+      count = data.length;
+      callback(count);
     },
   });
+}
 
-  debugger;
+/**
+ * Рендерит все отзывы
+ */
+function render() {
+  // Рисуем отзывы подтвержденные
+  buildApproved();
+  //Рисуем новые отзывы
+  buildNewFeedback();
+  //Рисуем отзывы отклоненные
+  buildDeclined();
 }
 
 (function ($) {
   $(function () {
-    // Рисуем отзывы подтвержденные
-    buildApproved();
-    //Рисуем новые отзывы
-    buildNewFeedback();
-    //Рисуем отзывы отклоненные
-    buildDeclined();
+    render();
 
     //событие нажатия на кнопку Отправить отзыв
     $('body').on('click', '#submit', function () {
       var $newFeedback = $('#newFeedback');
-
-      var numbFeedbacks = isFirstFeedback(function (response) {
-        return response.length;
-      });
       // Пробуем найти отзывы в db.json
-      debugger;
-      if (numbFeedbacks === 0) {
-        // Отзыв первый
-        $.ajax({
-          url: 'http://localhost:3000/feedback',
-          type: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: JSON.stringify({
-            id: 1,
-            text: $newFeedback.value,
-            status: 'add',
-          }),
-          success: function () {
-            // Перерисовываем отзывы для модерации
-            buildNewFeedback();
-          }
-        })
-      } else {
+      responseFeedback(function (numbFeedbacks) {
+        if (numbFeedbacks === 0) {
+          // Отзыв первый
+          $.ajax({
+            url: 'http://localhost:3000/feedback',
+            type: 'POST',
+            headers: {
+              'content-type': 'application/json',
+            },
+            data: JSON.stringify({
+              id: 1,
+              text: $newFeedback.value,
+              status: 'add',
+            }),
+            success: function () {
+              // Перерисовываем отзывы для модерации
+              buildNewFeedback();
+            }
+          })
+        } else {
+          // Отзыв не первый
+          $.ajax({
+            url: 'http://localhost:3000/feedback',
+            type: 'POST',
+            headers: {
+              'content-type': 'application/json',
+            },
+            data: JSON.stringify({
+              id: numbFeedbacks + 1,
+              text: $newFeedback.val(),
+              status: 'add',
+            }),
+            success: function () {
+              // Перерисовываем отзывы для модерации
+              buildNewFeedback();
+            }
+          })
+        }
+      });
+    });
 
-        // Отзыв не первый
-        $.ajax({
-          url: 'http://localhost:3000/feedback',
-          type: 'PATCH',
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: JSON.stringify({
-            id: numbFeedbacks + 1,
-            text: $newFeedback.value,
-            status: 'add',
-          }),
-          success: function () {
-            // Перерисовываем отзывы для модерации
-            buildNewFeedback();
-          }
-        })
-      }
-    })
+    $('#added').on('click', '.btnApr, .btnDcl', function () {
+      //находим id элемента
+      var $id = $(this).attr('data-id');
+      $.ajax({
+        url: 'http://localhost:3000/feedback/' + $id,
+        type: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: JSON.stringify({
+          status: (this.className.search('btnApr') !== -1) ? 'approve': 'decline'
+        }),
+        success: function () {
+          render();
+        }
+      });
+    });
   });
 })(jQuery);
