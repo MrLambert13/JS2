@@ -62,6 +62,7 @@ window.onload = function () {
           main.appendChild(galleryElem.run());
         });
 
+
         document.body.appendChild(main);
       }
     }
