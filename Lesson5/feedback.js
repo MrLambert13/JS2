@@ -81,13 +81,11 @@ function buildDeclined() {
   var $declinedDiv = $('#declined');
   // Очищаем подтверденные комментарии
   $declinedDiv.empty();
-
   // Отправляем запрос на получение списка подтвержденных отзывов
   $.ajax({
     url: 'http://localhost:3000/feedback',
     dataType: 'json',
     success: function (data) {
-
       // Перебираем отзывы
       data.forEach(function (item) {
         // Создаем div - элемент и содержимое
@@ -103,7 +101,7 @@ function buildDeclined() {
       });
     }
   })
-};
+}
 
 /**
  * Функция запроса, которая подсчитывает количество отзывов
@@ -136,32 +134,13 @@ function render() {
 (function ($) {
   $(function () {
     render();
-
     //событие нажатия на кнопку Отправить отзыв
     $('body').on('click', '#submit', function () {
       var $newFeedback = $('#newFeedback');
-      // Пробуем найти отзывы в db.json
-      responseFeedback(function (numbFeedbacks) {
-        if (numbFeedbacks === 0) {
-          // Отзыв первый
-          $.ajax({
-            url: 'http://localhost:3000/feedback',
-            type: 'POST',
-            headers: {
-              'content-type': 'application/json',
-            },
-            data: JSON.stringify({
-              id: 1,
-              text: $newFeedback.value,
-              status: 'add',
-            }),
-            success: function () {
-              // Перерисовываем отзывы для модерации
-              buildNewFeedback();
-            }
-          })
-        } else {
-          // Отзыв не первый
+      //если отзыв короткий то выводим сообщение и не добавляем ничего
+      if ($newFeedback.val().length > 3) {
+        //Получаем количество отзывов в базе и добавляем новый
+        responseFeedback(function (numbFeedbacks) {
           $.ajax({
             url: 'http://localhost:3000/feedback',
             type: 'POST',
@@ -178,13 +157,18 @@ function render() {
               buildNewFeedback();
             }
           })
-        }
-      });
+        });
+      } else {
+        alert('Отзыв должен быть больше 3 символов!');
+      }
     });
 
+    //вешаем событие на кнопки Approve и Decline
     $('#added').on('click', '.btnApr, .btnDcl', function () {
       //находим id элемента
       var $id = $(this).attr('data-id');
+
+      //Выполняем запрос элемента
       $.ajax({
         url: 'http://localhost:3000/feedback/' + $id,
         type: 'PATCH',
@@ -192,8 +176,10 @@ function render() {
           'content-type': 'application/json',
         },
         data: JSON.stringify({
-          status: (this.className.search('btnApr') !== -1) ? 'approve': 'decline'
+          //в зависимости от нажатой кнопки меняем статус отзыва
+          status: (this.className.search('btnApr') !== -1) ? 'approve' : 'decline'
         }),
+        //рендерим заного все блоки
         success: function () {
           render();
         }
