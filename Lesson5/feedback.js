@@ -41,7 +41,7 @@ function buildNewFeedback() {
 
   // Отправляем запрос на получение списка отзывов для модерации
   $.ajax({
-    url: 'http://localhost:3000/feedback',
+    url: 'http://localhost:3000/feedback/',
     dataType: 'json',
     success: function (data) {
 
@@ -105,10 +105,10 @@ function buildDeclined() {
   })
 };
 
-function isFirstFeedback() {
+function isFirstFeedback(callback) {
   var count = 0;
   $.ajax({
-    url: 'http://localhost:3000/feedback',
+    url: 'http://localhost:3000/feedback/',
     dataType: 'json',
     success: function (data) {
       // Перебираем отзывы
