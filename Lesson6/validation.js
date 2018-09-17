@@ -24,6 +24,8 @@ const params = {
   textHint: 'Текст произвольный, но хотя бы 1 символ',
   textRegExp: /\w/,
   elementForm: document.querySelector('form.my-form'),
+  text: [],
+  $dialogBox: $('#dialog'),
 
   /**
    * Создание подсказки
@@ -31,13 +33,13 @@ const params = {
    * @return {HTMLElement} - элемент который мы добавляем в DOM
    */
   createHint(message) {
-    //создаем тег div
-    const div = document.createElement('div');
-    //В текст ставим подсказку
-    div.textContent = message;
-    //делаем стиль тексту
-    div.classList.add('warningText');
-    return div;
+    // console.log(this.$dialogBox.innerText);
+    var result = this.text.findIndex((elem, idx) => {
+      return (elem == message) ? idx : -1;
+    });
+    if (result === -1) {
+      this.text.push(message);
+    }
   },
 
   /**
@@ -72,7 +74,7 @@ const params = {
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
-    elem.parentElement.appendChild(this.createHint(this.nameHint));
+    this.createHint(this.nameHint);
   },
 
   /**
@@ -94,7 +96,7 @@ const params = {
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
-    elem.parentElement.appendChild(this.createHint(this.telHint));
+    this.createHint(this.telHint);
   },
 
   /**
@@ -110,11 +112,11 @@ const params = {
     if (this.emailRegExp.test(elem.value)) {
       return true;
     }
-    $(elem).effect( "bounce", "slow" );
+    $(elem).effect("bounce", "slow");
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
-    elem.parentElement.appendChild(this.createHint(this.emailHint));
+    this.createHint(this.emailHint);
   },
 
   /**
@@ -130,11 +132,11 @@ const params = {
     if (this.textRegExp.test(elem.value)) {
       return true;
     }
-    $(elem).effect( "bounce", "slow" );
+    $(elem).effect("bounce", "slow");
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
-    elem.parentElement.appendChild(this.createHint(this.textHint));
+    this.createHint(this.textHint);
   },
 
   /**
@@ -150,11 +152,11 @@ const params = {
     if (this.dateRegExp.test(elem.value)) {
       return true;
     }
-    $(elem).effect( "bounce", "slow" );
+    $(elem).effect("bounce", "slow");
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
-    elem.parentElement.appendChild(this.createHint(this.dateHint));
+    this.createHint(this.dateHint);
   },
 
   /**
@@ -165,7 +167,7 @@ const params = {
   mainCheck(event) {
     //проверяем имя
     var nameCheck = this.nameContainerCheck();
-    //проверяем lfne
+    //проверяем дату
     var dateCheck = this.dateContainerCheck();
     //проверяем телефон
     var telCheck = this.telContainerCheck();
@@ -180,12 +182,16 @@ const params = {
       return;
     } else {
       event.preventDefault();
+      //показываем диалог для валидатора
+      this.$dialogBox.text(this.text.join(','));
+      this.$dialogBox.dialog("open");
     }
   },
 };
 
 (function ($) {
   $(function () {
+    // делаем ввод даты через jQuery UI
     $('[name="date"]').datepicker(
       {
         monthNames: [
@@ -199,6 +205,10 @@ const params = {
         firstDay: 1,
         dateFormat: "dd.mm.yy"
       });
+    //скрываем диалоговое окно
+    $("#dialog").dialog({autoOpen: false});
+
+
     //вещаем слушателя событий на отправку формы
     params.elementForm.addEventListener('submit', (event) => params.mainCheck(event));
   });
