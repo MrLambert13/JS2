@@ -17,6 +17,8 @@ const params = {
   nameRegExp: /^[A-Za-zА-Яа-яёЁ\s]+$/,
   telHint: 'Телефон подчиняется шаблону +7(000)000-0000',
   telRegExp: /^\+\d\(\d{3}\)\d{3}-\d{4}$/,
+  dateHint: 'Дата должна быть в формате дд.мм.гггг',
+  dateRegExp: /^\d{2}.\d{2}.\d{4}$/,
   emailHint: 'E-mail выглядит как mymail@mail.ru, или my.mail@mail.ru, или my-mail@mail.ru',
   emailRegExp: /^[a-z]{2}[\.-]?[a-z]{4}@mail.ru$/,
   textHint: 'Текст произвольный, но хотя бы 1 символ',
@@ -66,6 +68,7 @@ const params = {
     if (this.nameRegExp.test(elem.value)) {
       return true;
     }
+    $(elem).effect("bounce", "slow");
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
@@ -87,7 +90,7 @@ const params = {
     if (this.telRegExp.test(elem.value)) {
       return true;
     }
-
+    $(elem).effect("bounce", "slow");
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
@@ -107,6 +110,7 @@ const params = {
     if (this.emailRegExp.test(elem.value)) {
       return true;
     }
+    $(elem).effect( "bounce", "slow" );
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
@@ -126,10 +130,31 @@ const params = {
     if (this.textRegExp.test(elem.value)) {
       return true;
     }
+    $(elem).effect( "bounce", "slow" );
     //красная рамка у input
     elem.classList.add('warning');
     //создание сообщения под input
     elem.parentElement.appendChild(this.createHint(this.textHint));
+  },
+
+  /**
+   * Валидация текстового поля, при неверном вводе показать подсказку и подчеркнуть поле красным
+   * @return {boolean} true если всё верно, false если нет
+   */
+  dateContainerCheck() {
+    const elem = this.elementForm.querySelector('[name=date]');
+    //очищаем подскази и выделение перед проверкой
+    this.removeHint(elem);
+    elem.classList.remove('warning');
+    //проверяем верно ли введены данные
+    if (this.dateRegExp.test(elem.value)) {
+      return true;
+    }
+    $(elem).effect( "bounce", "slow" );
+    //красная рамка у input
+    elem.classList.add('warning');
+    //создание сообщения под input
+    elem.parentElement.appendChild(this.createHint(this.dateHint));
   },
 
   /**
@@ -140,6 +165,8 @@ const params = {
   mainCheck(event) {
     //проверяем имя
     var nameCheck = this.nameContainerCheck();
+    //проверяем lfne
+    var dateCheck = this.dateContainerCheck();
     //проверяем телефон
     var telCheck = this.telContainerCheck();
     //проверяем пароль
@@ -149,7 +176,7 @@ const params = {
 
     //если все проверки верны заканчиваем функцию и продолжаем отправку формы, иначе останавливаем действие браузера по умолчанию
     if (nameCheck && telCheck &&
-      emailCheck && textConfirmCheck) {
+      emailCheck && textConfirmCheck && dateCheck) {
       return;
     } else {
       event.preventDefault();
@@ -157,5 +184,22 @@ const params = {
   },
 };
 
-//вещаем слушателя событий на отправку формы
-params.elementForm.addEventListener('submit', (event) => params.mainCheck(event));
+(function ($) {
+  $(function () {
+    $('[name="date"]').datepicker(
+      {
+        monthNames: [
+          "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+          "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+        ],
+        dayNamesMin: [
+          "Вс", "Пн", "Вт", "Ср",
+          "Чт", "Пт", "Сб"
+        ],
+        firstDay: 1,
+        dateFormat: "dd.mm.yy"
+      });
+    //вещаем слушателя событий на отправку формы
+    params.elementForm.addEventListener('submit', (event) => params.mainCheck(event));
+  });
+})(jQuery);
