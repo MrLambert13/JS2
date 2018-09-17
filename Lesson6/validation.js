@@ -4,6 +4,8 @@
  * Объект отвечающий за валидацию
  * @property {string} nameHint - Подсказка для имени
  * @property {object} nameRegExp - Регулярное выражение для имени
+ * @property {string} dateHint - Подсказка для имени
+ * @property {object} dateRegExp - Регулярное выражение для имени
  * @property {string} telHint - Подсказка для телефона
  * @property {object} telRegExp - Регулярное выражение для номера телефона
  * @property {string} emailHint - Подсказка для пароля
@@ -11,6 +13,8 @@
  * @property {string} textHint - Подсказка для текста
  * @property {object} emailRegExp - Регулярное выражение для E-mail
  * @property {HTMLElement} elementForm - Форма в которой проходят проверки
+ * @property {array} text - массив куда передаются все сообщения о валидации
+ * @property {object} $dialogBox - диалоговое окно для валидации в DOM
  */
 const params = {
   nameHint: 'Имя содержит только буквы.',
@@ -28,30 +32,15 @@ const params = {
   $dialogBox: $('#dialog'),
 
   /**
-   * Создание подсказки
+   * Создание массива с подсказками валидации
    * @param {string} message - Сообщение подсказки
-   * @return {HTMLElement} - элемент который мы добавляем в DOM
    */
   createHint(message) {
-    // console.log(this.$dialogBox.innerText);
-    var result = this.text.findIndex((elem, idx) => {
-      return (elem == message) ? idx : -1;
+    var result = this.text.findIndex((elem) => {
+      return (elem === message);
     });
     if (result === -1) {
       this.text.push(message);
-    }
-  },
-
-  /**
-   * Удаление подсказки
-   * @param {object} elem - Элемент к которому подсказку нужно удалить
-   */
-  removeHint(elem) {
-    //в моем коде 1й элемент HTML collection это и есть подсказка, так то бы конечно искать послений элемент надо
-    const hint = elem.parentElement.children[1];
-    //Если есть такой элемент удаляем
-    if (hint) {
-      hint.remove();
     }
   },
 
@@ -62,8 +51,7 @@ const params = {
   nameContainerCheck() {
     const elem = this.elementForm.querySelector('[name=name]');
 
-    //очищаем подскази и выделение перед проверкой
-    this.removeHint(elem);
+    //очищаем выделение перед проверкой
     elem.classList.remove('warning');
 
     //проверяем условие
@@ -85,7 +73,6 @@ const params = {
     const elem = this.elementForm.querySelector('[name=phone]');
 
     //очищаем подскази и выделение перед проверкой
-    this.removeHint(elem);
     elem.classList.remove('warning');
 
     //проверяем условие
@@ -106,7 +93,6 @@ const params = {
   emailContainerCheck() {
     const elem = this.elementForm.querySelector('[name=email]');
     //очищаем подскази и выделение перед проверкой
-    this.removeHint(elem);
     elem.classList.remove('warning');
     //проверяем условие
     if (this.emailRegExp.test(elem.value)) {
@@ -126,7 +112,6 @@ const params = {
   textContainerCheck() {
     const elem = this.elementForm.querySelector('[name=text]');
     //очищаем подскази и выделение перед проверкой
-    this.removeHint(elem);
     elem.classList.remove('warning');
     //проверяем верно ли введен пароль
     if (this.textRegExp.test(elem.value)) {
@@ -146,7 +131,6 @@ const params = {
   dateContainerCheck() {
     const elem = this.elementForm.querySelector('[name=date]');
     //очищаем подскази и выделение перед проверкой
-    this.removeHint(elem);
     elem.classList.remove('warning');
     //проверяем верно ли введены данные
     if (this.dateRegExp.test(elem.value)) {
@@ -165,6 +149,10 @@ const params = {
    */
 
   mainCheck(event) {
+    // очищаем валидацию из переменной
+    this.text = [];
+    //очищаем диалоговое окно от сообщений
+    $(this.$dialogBox).empty();
     //проверяем имя
     var nameCheck = this.nameContainerCheck();
     //проверяем дату
@@ -183,9 +171,21 @@ const params = {
     } else {
       event.preventDefault();
       //показываем диалог для валидатора
-      this.$dialogBox.text(this.text.join(','));
-      this.$dialogBox.dialog("open");
+      this.text.forEach((value) => this.$dialogBox.append($('<p />').text(value)));
     }
+    this.$dialogBox.dialog({
+      width: 500,
+      dialogClass: "no-close",
+      buttons: [
+        {
+          text: "OK",
+          click: function () {
+            $(this).dialog("close");
+          }
+        }
+      ]
+    });
+    this.$dialogBox.dialog("open");
   },
 };
 
