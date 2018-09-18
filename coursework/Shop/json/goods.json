@@ -1,0 +1,23 @@
+{
+  "1": {
+    "name": "t-shirt",
+    "cost": 92,
+    "sex": "man",
+    "category": "upper",
+    "image": "img/item1.jpg"
+  },
+  "2": {
+    "name": "t-shirt",
+    "cost": 108,
+    "sex": "woman",
+    "category": "upper",
+    "image": "img/item2.jpg"
+  },
+  "3": {
+    "name": "jacket",
+    "cost": 77,
+    "sex": "man",
+    "category": "upper",
+    "image": "img/item3.jpg"
+  }
+}
