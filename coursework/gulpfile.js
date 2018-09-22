@@ -46,7 +46,7 @@ gulp.task('browserSync', function () {
 
 //start develop
 gulp.task('start', function (callback) {
-  runSequence(['startJson', 'browserSync'],
+  runSequence([/*'startJson',*/ 'browserSync'],
     'watch',
     callback);
 });
@@ -56,5 +56,6 @@ gulp.task('watch', function () {
   gulp.watch('src/sass/**/*sass', ['sass']);
   gulp.watch('src/*.html', browserSync.reload);
   gulp.watch('src/script/**/*.js', browserSync.reload);
+  gulp.watch('src/json/**/*.json', browserSync.reload);
 });
 
