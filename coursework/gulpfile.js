@@ -8,16 +8,19 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 //browser-sync
 var browserSync = require('browser-sync');
+var browserPort = 8080;
+var browserPortUI = 8081;
 //gulp-json-server
 var jsonServer = require('gulp-json-srv');
 var server = jsonServer.create();
+var pathDataJson = 'src/json/db.json';
 //run-sequence
 var runSequence = require('run-sequence');
 
 //start json server with address http://localhost:3000
 gulp.task('startJson', function () {
   //path to json file
-  return gulp.src('src/json/db.json')
+  return gulp.src(pathDataJson)
   //start server
     .pipe(server.pipe());
 });
@@ -38,15 +41,15 @@ gulp.task('browserSync', function () {
       baseDir: 'src',
     },
     ui: {
-      port: 8081
+      port: browserPortUI
     },
-    port: 8080
+    port: browserPort
   })
 });
 
 //start develop
 gulp.task('start', function (callback) {
-  runSequence([/*'startJson',*/ 'browserSync'],
+  runSequence(['startJson', 'browserSync'],
     'watch',
     callback);
 });
@@ -56,6 +59,6 @@ gulp.task('watch', function () {
   gulp.watch('src/sass/**/*sass', ['sass']);
   gulp.watch('src/*.html', browserSync.reload);
   gulp.watch('src/script/**/*.js', browserSync.reload);
-  gulp.watch('src/json/**/*.json', browserSync.reload);
+  gulp.watch(pathDataJson, ['startJson', browserSync.reload]);
 });
 
