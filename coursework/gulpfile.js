@@ -1,12 +1,24 @@
-var gulp = require('gulp'),
-  sass = require('gulp-sass'),
-  browserSync = require('browser-sync'),
-  jsonServer = require('gulp-json-srv'),
-  server = jsonServer.create();
+/**
+ * For start develop type "npm run gulp start"
+ */
 
-//start json server
+//gulp
+var gulp = require('gulp');
+//gulp-sass
+var sass = require('gulp-sass');
+//browser-sync
+var browserSync = require('browser-sync');
+//gulp-json-server
+var jsonServer = require('gulp-json-srv');
+var server = jsonServer.create();
+//run-sequence
+var runSequence = require('run-sequence');
+
+//start json server with address http://localhost:3000
 gulp.task('startJson', function () {
+  //path to json file
   return gulp.src('src/json/db.json')
+  //start server
     .pipe(server.pipe());
 });
 
@@ -15,19 +27,28 @@ gulp.task('sass', function () {
   return gulp.src('src/sass/**/*.sass')
     .pipe(sass())
     .pipe(gulp.dest('src/style'))
-    .pipe(browserSync.reload({string: true}));
+    .pipe(browserSync.reload({stream: true}));
 });
 
-//настройки сервера для browser sync
+//настройки сервера для browser sync c адресом http://localhost:8080
 gulp.task('browserSync', function () {
   browserSync({
     server: {
+      //путь до файла index.html
       baseDir: 'src',
     },
-    local: {
-      port: 8080
-    }
+    ui: {
+      port: 8081
+    },
+    port: 8080
   })
+});
+
+//start develop
+gulp.task('start', function (callback) {
+  runSequence(['startJson', 'browserSync'],
+    'watch',
+    callback);
 });
 
 //watcher
