@@ -1,6 +1,14 @@
 var gulp = require('gulp'),
   sass = require('gulp-sass'),
-  browserSync = require('browser-sync');
+  browserSync = require('browser-sync'),
+  jsonServer = require('gulp-json-srv'),
+  server = jsonServer.create();
+
+//start json server
+gulp.task('startJson', function () {
+  return gulp.src('src/json/db.json')
+    .pipe(server.pipe());
+});
 
 //прогоняем sass файлы
 gulp.task('sass', function () {
@@ -14,7 +22,10 @@ gulp.task('sass', function () {
 gulp.task('browserSync', function () {
   browserSync({
     server: {
-      baseDir: 'src'
+      baseDir: 'src',
+    },
+    local: {
+      port: 8080
     }
   })
 });
