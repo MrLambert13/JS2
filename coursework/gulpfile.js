@@ -1,5 +1,7 @@
 /**
  * For start develop type "npm run gulp start"
+ * this command start JSONserver, browserSync, and will watch for change .json, .js, .sass, .html files.
+ *
  */
 
 //gulp

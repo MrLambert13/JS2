@@ -1,0 +1,74 @@
+{
+  "users": [
+    {
+      "1": {
+        "name": "admin",
+        "pass": "admin"
+      },
+      "2": {
+        "name": "test",
+        "pass": "test"
+      }
+    }
+  ],
+  "goods":
+    {
+      "1": {
+        "name": "Mango t-shirt",
+        "cost": 92,
+        "sex": "man",
+        "category": "upper",
+        "image": "img/item1.jpg"
+      },
+      "2": {
+        "name": "Woman t-shirt",
+        "cost": 108,
+        "sex": "woman",
+        "category": "upper",
+        "image": "img/item2.jpg"
+      },
+      "3": {
+        "name": "jacket",
+        "cost": 77,
+        "sex": "man",
+        "category": "upper",
+        "image": "img/item3.jpg"
+      },
+      "4": {
+        "name": "flower dress",
+        "cost": 130,
+        "sex": "woman",
+        "category": "body",
+        "image": "img/item4.jpg"
+      },
+      "5": {
+        "name": "line dress",
+        "cost": 135,
+        "sex": "woman",
+        "category": "body",
+        "image": "img/item5.jpg"
+      },
+      "6": {
+        "name": "jacket",
+        "cost": 99.99,
+        "sex": "man",
+        "category": "upper",
+        "image": "img/item6.jpg"
+      },
+      "7": {
+        "name": "pants",
+        "cost": 57.30,
+        "sex": "man",
+        "category": "lower",
+        "image": "img/item7.jpg"
+      },
+      "8": {
+        "name": "sweatshirt",
+        "cost": 28.30,
+        "sex": "man",
+        "category": "upper",
+        "image": "img/item8.jpg"
+      }
+    },
+  "cart": []
+}
