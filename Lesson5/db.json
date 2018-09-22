@@ -1,0 +1,82 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Vasya"
+    },
+    {
+      "id": 2,
+      "name": "Petya"
+    }
+  ],
+  "goods": [
+    {
+      "id": 1,
+      "name": "Трусы",
+      "price": 255
+    },
+    {
+      "id": 2,
+      "name": "Майки",
+      "price": 100
+    },
+    {
+      "id": 3,
+      "name": "Носки",
+      "price": 150
+    },
+    {
+      "id": 4,
+      "name": "Шапки",
+      "price": 567
+    }
+  ],
+  "cart": [
+    {
+      "id": "2",
+      "quantity": 7,
+      "name": "Майки",
+      "price": "100"
+    },
+    {
+      "id": "3",
+      "quantity": 2,
+      "name": "Носки",
+      "price": "150"
+    },
+    {
+      "id": "4",
+      "quantity": 3,
+      "name": "Шапки",
+      "price": "567"
+    },
+    {
+      "id": "1",
+      "quantity": 2,
+      "name": "Трусы",
+      "price": "255"
+    }
+  ],
+  "feedback": [
+    {
+      "id": 1,
+      "text": "Feedback 1",
+      "status": "add"
+    },
+    {
+      "id": 2,
+      "text": "Feedback 2",
+      "status": "decline"
+    },
+    {
+      "id": 3,
+      "text": "Feedback 3",
+      "status": "approve"
+    },
+    {
+      "id": 4,
+      "text": "Feedback 4",
+      "status": "approve"
+    }
+  ]
+}
