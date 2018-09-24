@@ -884,7 +884,8 @@ body {
     color: #222222;
     font-size: 12px;
     font-weight: 700;
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    text-align: left; }
     .col2__name:hover {
       text-decoration: underline; }
   .col2__price {
