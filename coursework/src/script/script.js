@@ -1,24 +1,11 @@
 "use strict";
-/*
-<div class="item">
-  <a href="product.html" class="item__linktoproduct">
-    <img class="item__img" src="img/item1.jpg" alt="item1">
-    <h6 class="item__name">Mango People T-shirt</h6>
-    <p class="item__price">&#36;52.00</p>
-  </a>
-  <div class="item__card">
-    <a class="item__card-link" href="#"><img src="img/shoppingcard-white.svg" alt="card">
-      Add to
-      Cart</a>
-  </div>
-</div>*/
 
 (function ($) {
   $('document').ready(function () {
     //Load all goods from db.json/goods
     loadGoods();
     //Load cart from db.json/cart
-    loadCart();
+    buildCart();
     //Add event on btn 'Add to cart'
     $('#goods').on('click', '.item__card-link', function (event) {
       // console.log(event.target.dataset.id);
@@ -28,9 +15,7 @@
   });
 })(jQuery);
 
-function loadCart() {
-  //TODO Load cart
-}
+
 
 /**
  * Add to cart good
