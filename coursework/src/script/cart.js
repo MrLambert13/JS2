@@ -3,31 +3,27 @@
 /*
 <div id="cart" class="cart__menu menuCart">
 
-  <div class="menuCart__total flex-jcsb">
-    <span class="menuCart__total_text">TOTAL</span>
-    <span class="menuCart__total_text">$500.00</span>
-  </div>
-
   <a href="checkout.html" class="menuCart__btn menuCart__btn_check ">chekout</a>
   <a href="cart.html" class="menuCart__btn menuCart__btn_cart ">go to cart</a>
 
 </div>*/
+
 
 function buildCart() {
   //TODO Load cart
   var $cart = $('#cart');
   $cart.empty();
   var totalPrice = 0;
-  $.getJSON('http://localhost:3000/cart', function (data) {
-    // console.log(data);
-    if (data.length === 0) {
-      $cart.text('No goods');
-    } else {
-      for (var key in data) {
-
-        getInfo(key, function (name, price, srcImage) {
-          // console.log(name, price, srcImage);
-          //build good sin cart
+  $.ajax({
+    url: 'http://localhost:3000/cart',
+    dataType: 'json',
+    success: function (cart) {
+      // console.log(data);
+      if (cart.length === 0) {
+        $cart.text('No goods');
+      } else {
+        cart.forEach(function (item) {
+          //build goods in cart
           $cart.append(
             $('<div />')
               .addClass('menuCart__row flex-jcsb-aic')
@@ -36,11 +32,15 @@ function buildCart() {
                   .addClass('menuCart__row_col1')
                   .append(
                     $('<a />')
-                      .attr('href', '#')
+                      .attr({
+                        href: '#',
+                        'data-quantity': item.quantity,
+                        'data-id': item.id
+                      })
                       .append(
                         $('<img />').attr({
-                          src: srcImage,
-                          alt: name,
+                          src: item.image,
+                          alt: item.name,
                           style: 'height: 85px'
                         })
                       )
@@ -54,7 +54,7 @@ function buildCart() {
                         class: 'col2__name',
                         href: '#'
                       })
-                      .text(name),
+                      .text(item.name),
                     //TODO add stars
                     $('<img />').attr({
                       class: 'col2__star block',
@@ -64,7 +64,7 @@ function buildCart() {
                     //count and price
                     $('<span />')
                       .addClass('col2__price')
-                      .text(data[key] + ' x $' + price) //TODO count
+                      .text(item.quantity + ' x $ ' + (+item.price).toFixed(2))
                   ),
                 //col 3 with btn remove
                 $('<div />')
@@ -81,21 +81,81 @@ function buildCart() {
                   )
               )
           );
-          totalPrice += data[key] * price;
-          console.log(totalPrice);
+          totalPrice += item.quantity * item.price;
+          // console.log(totalPrice.toFixed(2));
+
         });
+        $cart.append(
+          $('<div />')
+            .addClass('menuCart__total flex-jcsb')
+            .append(
+              $('<span />').addClass('menuCart__total_text').text('TOTAL'),
+              $('<span />').addClass('menuCart__total_text').text('$' + totalPrice)
+            )
+        );
       }
     }
-
   });
+
 }
 
-function getInfo(id, callback) {
+/**
+ * Add to cart good
+ * @param target {HTMLElement} - clicked element in DOM
+ */
+function addToCart(target) {
+  //get id
+  var id = target.dataset.id;
+  //check cart for this ID
+  var entity = $('#cart [data-id="' + target.dataset.id + '"]');
+  if (entity.length) {
+    //selected good already in the cart
+    $.ajax({
+      url: 'http://localhost:3000/cart/' + id,
+      type: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+      },
+      data: JSON.stringify({
+        quantity: +$(entity)[0].dataset.quantity + 1,
+      }),
+      success: function () {
+        // rebuld cart
+        buildCart();
+      }
+    })
+  } else {
+    //it is first good
+    $.ajax({
+      url: 'http://localhost:3000/cart',
+      type: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      data: JSON.stringify({
+        id: id,
+        quantity: 1,
+        name: target.dataset.name,
+        price: target.dataset.price,
+        image: target.dataset.srcimg
+      }),
+      success: function () {
+        // rebuld cart
+        buildCart();
+      }
+    })
+  }
+}
+
+function removeFromCart(target) {
+  //get id
+  var id = target.dataset.id;
   $.ajax({
-    url: 'http://localhost:3000/goods',
-    dataType: 'json',
-    success: function (dataGoods) {
-      callback(dataGoods[id]['name'], dataGoods[id]['cost'], dataGoods[id]['image']);
+    url: 'http://localhost:3000/cart/' + id,
+    type: 'DELETE',
+    success: function () {
+      // rebuld cart
+      buildCart();
     }
   })
 }
