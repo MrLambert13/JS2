@@ -96,7 +96,9 @@ function buildCart() {
       }
     }
   });
+  $cart.append(
 
+  )
 }
 
 /**
