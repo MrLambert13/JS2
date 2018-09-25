@@ -18,7 +18,8 @@
     $('#cart').on('click', '.action__del', function (event) {
       console.log(event);
       console.log(event.target);
-      // removeFromCart(event.target);
+      console.log(event.currentTarget);
+      removeFromCart(event.currentTarget);
     });
   });
 })(jQuery);

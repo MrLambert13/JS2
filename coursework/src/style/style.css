@@ -839,6 +839,8 @@ body {
 
 .menuCart {
   padding: 20px;
+  max-height: 440px;
+  overflow-x: auto;
   box-sizing: border-box; }
   .menuCart__row a {
     text-decoration: none; }

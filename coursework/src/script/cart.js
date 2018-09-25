@@ -18,7 +18,6 @@ function buildCart() {
     url: 'http://localhost:3000/cart',
     dataType: 'json',
     success: function (cart) {
-      // console.log(data);
       if (cart.length === 0) {
         $cart.text('No goods');
       } else {
@@ -73,7 +72,8 @@ function buildCart() {
                     $('<a />')
                       .attr({
                         class: 'action__del',
-                        href: '#'
+                        href: '#',
+                        'data-id': item.id
                       })
                       .append(
                         $('<i />').addClass('fas fa-times-circle')
@@ -90,7 +90,7 @@ function buildCart() {
             .addClass('menuCart__total flex-jcsb')
             .append(
               $('<span />').addClass('menuCart__total_text').text('TOTAL'),
-              $('<span />').addClass('menuCart__total_text').text('$' + totalPrice)
+              $('<span />').addClass('menuCart__total_text').text('$' + totalPrice.toFixed(2))
             )
         );
       }
