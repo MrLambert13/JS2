@@ -8,18 +8,38 @@
 
 </div>*/
 
+/**
+ * Function add small number of goods on top cart in header
+ * and remove it if count < 0
+ * @param count {number} count added goods
+ */
+function buildNumber(count) {
+  if (count > 0) {
+    var $cartImg = $('.cart-hov');
+    $cartImg.append(
+      $('<div />', {class: 'cart__number'}).text(count)
+    );
+  } else {
+    $('.cart__number').remove();
+  }
+}
 
-function buildCart() {
+/**
+ * Build cart and add selected goods
+ */
+function buildMiniCart() {
   //TODO Load cart
   var $cart = $('#cart');
   $cart.empty();
   var totalPrice = 0;
+  var totalCount = 0;
   $.ajax({
     url: 'http://localhost:3000/cart',
     dataType: 'json',
     success: function (cart) {
       if (cart.length === 0) {
-        $cart.text('No goods');
+        $cart.text('YOUR CART IS EMPTY');
+        buildNumber(cart.length);
       } else {
         cart.forEach(function (item) {
           //build goods in cart
@@ -81,9 +101,10 @@ function buildCart() {
                   )
               )
           );
+          totalCount += item.quantity;
           totalPrice += item.quantity * item.price;
           // console.log(totalPrice.toFixed(2));
-
+          buildNumber(totalCount);
         });
         $cart.append(
           $('<div />')
@@ -96,8 +117,16 @@ function buildCart() {
       }
     }
   });
+  // add button
   $cart.append(
-
+    $('<a />', {
+      class: 'menuCart__btn menuCart__btn_check',
+      href: 'checkout.html',
+    }).text('chekout'),
+    $('<a />', {
+      class: 'menuCart__btn menuCart__btn_cart',
+      href: 'cart.html',
+    }).text('go to cart')
   )
 }
 
@@ -123,7 +152,7 @@ function addToCart(target) {
       }),
       success: function () {
         // rebuld cart
-        buildCart();
+        buildMiniCart();
       }
     })
   } else {
@@ -143,7 +172,7 @@ function addToCart(target) {
       }),
       success: function () {
         // rebuld cart
-        buildCart();
+        buildMiniCart();
       }
     })
   }
@@ -157,7 +186,7 @@ function removeFromCart(target) {
     type: 'DELETE',
     success: function () {
       // rebuld cart
-      buildCart();
+      buildMiniCart();
     }
   })
 }

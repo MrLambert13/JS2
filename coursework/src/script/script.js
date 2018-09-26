@@ -5,7 +5,7 @@
     //Load all goods from db.json/goods
     loadGoods();
     //Load cart from db.json/cart
-    buildCart();
+    buildMiniCart();
 
     //Add event on btn 'Add to cart'
     $('#goods').on('click', '.item__card-link', function (event) {

@@ -61,6 +61,6 @@ gulp.task('watch', function () {
   gulp.watch('src/sass/**/*sass', ['sass']);
   gulp.watch('src/*.html', browserSync.reload);
   gulp.watch('src/script/**/*.js', browserSync.reload);
-  gulp.watch(pathDataJson, ['startJson', browserSync.reload]);
+  gulp.watch('src/json/**/*.json', ['startJson', browserSync.reload]);
 });
 

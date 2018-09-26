@@ -4,11 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Main page</title>
+  <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="style/style.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
-        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+  <! --jQuery 3.x snippet:-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--my script-->
+  <!--build:js js/main.min.js -->
   <script src="script/script.js"></script>
+  <script src="script/cart.js"></script>
+  <!-- endbuild -->
 </head>
 
 <body>
@@ -34,39 +42,8 @@
             <a class="liStyle-none block cart" href="cart.html">
               <img class="headerRight__card" src="img/shoppingcard.svg" alt="shopcard">
             </a>
-            <div class="cart__menu menuCart">
-              <div class="menuCart__row flex-jcsb-aic">
-                <div class="menuCart__row_col1">
-                  <a href="#"><img src="img/reboxzane1.jpg" alt=""></a>
-                </div>
-                <div class="menuCart__row_col2 col2">
-                  <a class="col2__name" href="#">Rebox Zane</a>
-                  <img class="col2__star block" src="img/stars.png" alt="">
-                  <span class="col2__price">1 x $250</span>
-                </div>
-                <div class="menuCart__row_col3">
-                  <a class="action__del" href="#"><i class="fas fa-times-circle"></i></a>
-                </div>
-              </div>
-              <div class="menuCart__row flex-jcsb-aic">
-                <div class="menuCart__row_col1">
-                  <a href="#"><img src="img/reboxzane2.jpg" alt=""></a>
-                </div>
-                <div class="menuCart__row_col2 col2">
-                  <a class="col2__name" href="#">Rebox Zane</a>
-                  <img class="col2__star block" src="img/stars.png" alt="">
-                  <span class="col2__price">1 x $250</span>
-                </div>
-                <div class="menuCart__row_col3">
-                  <a class="action__del" href="#"><i class="fas fa-times-circle"></i></a>
-                </div>
-              </div>
-              <div class="menuCart__total flex-jcsb">
-                <span class="menuCart__total_text">TOTAL</span>
-                <span class="menuCart__total_text">$500.00</span>
-              </div>
-              <a href="checkout.html" class="menuCart__btn menuCart__btn_check ">chekout</a>
-              <a href="cart.html" class="menuCart__btn menuCart__btn_cart ">go to cart</a>
+            <div id="cart" class="cart__menu menuCart">
+
             </div>
           </div>
 
