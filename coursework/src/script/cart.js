@@ -2,16 +2,7 @@
 
 /*
 <div class="row flex">
-  <div class="detail flex-aic liStyle-none">
-   
-    <div>
-      <a href="#"><h3 class="detail__prodName">Mango People T-shirt</h3></a>
-      <p class="detail__prodChar">Color: <span class="detail__prodChar-gray">RED</span></p>
-      <p class="detail__prodChar">Size: <span class="detail__prodChar-gray">Xll</span></p>
-    </div>
-    
-  </div>
-  
+
   <div class="cardPrice">
     <p class="cardPrice__text">$150</p>
   </div>
@@ -38,7 +29,6 @@
 function buildBigCart() {
   var checkUrl = /cart.html/;
   var currentUrl = document.location.href;
-  console.log(currentUrl);
   //if this opened
   if (checkUrl.test(currentUrl)) {
     var $cartBig = $('#bigCart');
@@ -51,8 +41,9 @@ function buildBigCart() {
           buildNumber(cart.length);
         } else {
           cart.forEach(function (item) {
-            //column PRODUCT
-            var $divItem = $('<div />', {class: 'row flex'});
+            //column 1 - PRODUCT
+            var $divRowItem = $('<div />', {class: 'row flex'});
+            var $divDetail = $('<div />', {class: 'detail flex-aic liStyle-none'});
             var $scaleImgDiv = $('<div />', {class: 'img-scale'});
             var $imageGood = $('<a />', {href: '#'});
             $imageGood.append(
@@ -62,10 +53,46 @@ function buildBigCart() {
               })
             );
             $scaleImgDiv.append($imageGood);
-            $divItem.append($scaleImgDiv);
-            $cartBig.append($divItem);
+            $divDetail.append($scaleImgDiv);
+            $divRowItem.append($divDetail);
+            $cartBig.append($divRowItem);
 
-            //column DETAIL
+            //column 2 - DETAIL
+            var $nameLinkToGood = $('<a />', {href: '#'});
+            $nameLinkToGood.append((
+              $('<h3 />', {class: 'detail__prodName'}).text(item.name)
+            ));
+            var $color = $('<p />', {class: 'detail__prodChar'}).text('Color:');
+            $color.append($('<span />', {class: 'detail__prodChar-gray'}).text(item.color));
+            var $size = $('<p />', {class: 'detail__prodChar'}).text('Size:');
+            $size.append($('<span />', {class: 'detail__prodChar-gray'}).text(item.size));
+            $divDetail.append($('<div />', {class: 'description'}).append($nameLinkToGood, $color, $size));
+            $divRowItem.append($divDetail);
+
+            //column 3 - Unite price
+            var $divPrice = $('<div />', {class: 'cardPrice'});
+            $divPrice = $('<p />', {class: 'cardPrice__text'}).text('$' + (+item.price).toFixed(2));
+            $divRowItem.append($divPrice);
+
+            //column 4 - QUANTITY
+            var $divQuantity = $('<div />', {class: 'quantity flex-aic'});
+            var $inputQuantity = $('<input />');
+            $inputQuantity.attr({
+              class: 'quantity__input',
+              type: 'number',
+              value: item.quantity,
+              min: '1'
+            });
+            $divQuantity.append($inputQuantity);
+            $divRowItem.append($divQuantity);
+
+            //column 5 - shipping
+            var $divShip = $('<div />', {class: 'ship'});
+            console.log(item.shipping);
+            $divShip.append(
+              $('<p />', {class: 'ship__text'}).text(item.shipping)
+            );
+            $divRowItem.append($divShip);
           });
         }
       }
@@ -96,7 +123,6 @@ function buildNumber(count) {
  * Build cart and add selected goods
  */
 function buildMiniCart() {
-  //TODO Load cart
   var $cart = $('#cart');
   $cart.empty();
   var totalPrice = 0;
@@ -123,6 +149,7 @@ function buildMiniCart() {
                         href: '#',
                         'data-quantity': item.quantity,
                         'data-id': item.id
+
                       })
                       .append(
                         $('<img />').attr({
@@ -238,7 +265,11 @@ function addToCart(target) {
         quantity: 1,
         name: target.dataset.name,
         price: target.dataset.price,
-        image: target.dataset.srcimg
+        image: target.dataset.srcimg,
+        color: target.dataset.color,
+        size: target.dataset.size,
+        shipping: target.dataset.shipping
+        //TODO новые данные
       }),
       success: function () {
         // rebuld cart
@@ -248,6 +279,7 @@ function addToCart(target) {
   }
 }
 
+//remove good from cart
 function removeFromCart(target) {
   //get id
   var id = target.dataset.id;

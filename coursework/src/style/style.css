@@ -927,8 +927,13 @@ body {
 
 .img-scale {
   transition: transform 0.5s; }
+  .img-scale img {
+    height: 85px; }
   .img-scale:hover {
-    transform: scale(1.5); }
+    transform: scale(3); }
+
+.description {
+  margin-left: 10px; }
 
 .detail {
   flex: 4; }
@@ -946,7 +951,8 @@ body {
     line-height: 21px; }
     .detail__prodChar-gray {
       color: #6f6e6e;
-      font-weight: 300; }
+      font-weight: 300;
+      text-transform: uppercase; }
   .detail a:hover {
     text-decoration: underline; }
 

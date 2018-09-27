@@ -20,7 +20,10 @@
       "price": 92,
       "sex": "man",
       "category": "upper",
-      "image": "img/item1.jpg"
+      "image": "img/item1.jpg",
+      "color": "white",
+      "size": "xxl",
+      "shipping": "free"
     },
     {
       "id": 1,
@@ -28,7 +31,10 @@
       "price": 108,
       "sex": "woman",
       "category": "upper",
-      "image": "img/item2.jpg"
+      "image": "img/item2.jpg",
+      "color": "red",
+      "size": "s",
+      "shipping": "free"
     },
     {
       "id": 2,
@@ -36,7 +42,10 @@
       "price": 77,
       "sex": "man",
       "category": "upper",
-      "image": "img/item3.jpg"
+      "image": "img/item3.jpg",
+      "color": "blue",
+      "size": "m",
+      "shipping": "free"
     },
     {
       "id": 3,
@@ -44,7 +53,10 @@
       "price": 130,
       "sex": "woman",
       "category": "body",
-      "image": "img/item4.jpg"
+      "image": "img/item4.jpg",
+      "color": "flower",
+      "size": "s",
+      "shipping": "free"
     },
     {
       "id": 4,
@@ -52,7 +64,10 @@
       "price": 135,
       "sex": "woman",
       "category": "body",
-      "image": "img/item5.jpg"
+      "image": "img/item5.jpg",
+      "color": "black & white",
+      "size": "L",
+      "shipping": "free"
     },
     {
       "id": 5,
@@ -60,7 +75,10 @@
       "price": 99.99,
       "sex": "man",
       "category": "upper",
-      "image": "img/item6.jpg"
+      "image": "img/item6.jpg",
+      "color": "gray",
+      "size": "L",
+      "shipping": "free"
     },
     {
       "id": 6,
@@ -68,7 +86,10 @@
       "price": 57.3,
       "sex": "man",
       "category": "lower",
-      "image": "img/item7.jpg"
+      "image": "img/item7.jpg",
+      "color": "cream",
+      "size": "XL",
+      "shipping": "free"
     },
     {
       "id": 7,
@@ -76,7 +97,10 @@
       "price": 28.3,
       "sex": "man",
       "category": "upper",
-      "image": "img/item8.jpg"
+      "image": "img/item8.jpg",
+      "color": "blue",
+      "size": "L",
+      "shipping": "free"
     }
   ],
   "cart": [
@@ -85,7 +109,20 @@
       "quantity": 1,
       "name": "Mango t-shirt",
       "price": "92",
-      "image": "img/item1.jpg"
+      "image": "img/item1.jpg",
+      "color": "white",
+      "size": "white",
+      "shipping": "free"
+    },
+    {
+      "id": "1",
+      "quantity": 2,
+      "name": "Woman t-shirt",
+      "price": "108",
+      "image": "img/item2.jpg",
+      "color": "red",
+      "size": "red",
+      "shipping": "free"
     }
   ]
 }

@@ -54,6 +54,10 @@ function loadGoods() {
             'data-name': elem.name,
             'data-price': elem.price,
             'data-srcImg': elem.image,
+            'data-color': elem.color,
+            'data-size': elem.color,
+            'data-shipping': elem.shipping
+          //TODO сюда добавлять новые данные
           })
             .text('Add to cart')
         );

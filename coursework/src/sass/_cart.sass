@@ -6,7 +6,6 @@ $rowtextcolor: #656565
   color: $rowtextcolor
   padding: 20px 3px
 
-
 .headrow
   padding: 20px 3px
 
@@ -16,12 +15,15 @@ $rowtextcolor: #656565
   line-height: 12px
   text-transform: uppercase
 
-
 .img-scale
   transition: transform 0.5s
+  img
+    height: 85px
   &:hover
-    transform: scale(1.5)
+    transform: scale(3)
 
+.description
+  margin-left: 10px
 
 .detail
   flex: 4
@@ -40,10 +42,9 @@ $rowtextcolor: #656565
     &-gray
       color: #6f6e6e
       font-weight: 300
+      text-transform: uppercase
   a:hover
     text-decoration: underline
-
-
 
 .cardPrice
   text-align: center
@@ -150,6 +151,7 @@ $rowtextcolor: #656565
     &:hover
       color: #ffffff
       background-color: #f16d7f
+
 .adress, .coupon, .total
   flex: 1
 
