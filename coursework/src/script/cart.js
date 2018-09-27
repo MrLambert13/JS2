@@ -1,12 +1,80 @@
 "use strict";
 
 /*
-<div id="cart" class="cart__menu menuCart">
+<div class="row flex">
+  <div class="detail flex-aic liStyle-none">
+   
+    <div>
+      <a href="#"><h3 class="detail__prodName">Mango People T-shirt</h3></a>
+      <p class="detail__prodChar">Color: <span class="detail__prodChar-gray">RED</span></p>
+      <p class="detail__prodChar">Size: <span class="detail__prodChar-gray">Xll</span></p>
+    </div>
+    
+  </div>
+  
+  <div class="cardPrice">
+    <p class="cardPrice__text">$150</p>
+  </div>
+  
+  <div class="quantity flex-aic">
+    <input class="quantity__input" type="number" value="2" min="1">
+  </div>
+  
+  <div class="ship">
+    <p class="ship__text">FREE</p>
+  </div>
+  
+  <div class="subtotal">
+    <p class="cardPrice__text">$300</p>
+  </div>
+  
+  <div class="action">
+    <a class="action__del" href="#"><i class="fas fa-times-circle"></i></a>
+  </div>
+  
+</div>
+*/
 
-  <a href="checkout.html" class="menuCart__btn menuCart__btn_check ">chekout</a>
-  <a href="cart.html" class="menuCart__btn menuCart__btn_cart ">go to cart</a>
+function buildBigCart() {
+  var checkUrl = /cart.html/;
+  var currentUrl = document.location.href;
+  console.log(currentUrl);
+  //if this opened
+  if (checkUrl.test(currentUrl)) {
+    var $cartBig = $('#bigCart');
+    $.ajax({
+      url: 'http://localhost:3000/cart',
+      dataType: 'json',
+      success: function (cart) {
+        if (cart.length === 0) {
+          $cartBig.text('YOUR CART IS EMPTY');
+          buildNumber(cart.length);
+        } else {
+          cart.forEach(function (item) {
+            //column PRODUCT
+            var $divItem = $('<div />', {class: 'row flex'});
+            var $scaleImgDiv = $('<div />', {class: 'img-scale'});
+            var $imageGood = $('<a />', {href: '#'});
+            $imageGood.append(
+              $('<img />', {
+                src: item.image,
+                alt: item.name
+              })
+            );
+            $scaleImgDiv.append($imageGood);
+            $divItem.append($scaleImgDiv);
+            $cartBig.append($divItem);
 
-</div>*/
+            //column DETAIL
+          });
+        }
+      }
+    });
+  } else {
+
+  }
+
+}
 
 /**
  * Function add small number of goods on top cart in header
@@ -128,6 +196,8 @@ function buildMiniCart() {
       href: 'cart.html',
     }).text('go to cart')
   )
+  //Load cart from db.json/cart to big cart
+  buildBigCart();
 }
 
 /**

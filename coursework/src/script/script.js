@@ -4,8 +4,9 @@
   $('document').ready(function () {
     //Load all goods from db.json/goods
     loadGoods();
-    //Load cart from db.json/cart
+    //Load cart from db.json/cart to mini cart
     buildMiniCart();
+
 
     //Add event on btn 'Add to cart'
     $('#goods').on('click', '.item__card-link', function (event) {

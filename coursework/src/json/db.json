@@ -65,7 +65,7 @@
     {
       "id": 6,
       "name": "pants",
-      "price": 57.30,
+      "price": 57.3,
       "sex": "man",
       "category": "lower",
       "image": "img/item7.jpg"
@@ -73,11 +73,19 @@
     {
       "id": 7,
       "name": "sweatshirt",
-      "price": 28.30,
+      "price": 28.3,
       "sex": "man",
       "category": "upper",
       "image": "img/item8.jpg"
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "id": "0",
+      "quantity": 1,
+      "name": "Mango t-shirt",
+      "price": "92",
+      "image": "img/item1.jpg"
+    }
+  ]
 }

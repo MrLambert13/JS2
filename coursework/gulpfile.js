@@ -27,7 +27,7 @@ gulp.task('startJson', function () {
     .pipe(server.pipe());
 });
 
-//прогоняем sass файлы
+//compile sass files
 gulp.task('sass', function () {
   return gulp.src('src/sass/**/*.sass')
     .pipe(sass())
@@ -35,11 +35,11 @@ gulp.task('sass', function () {
     .pipe(browserSync.reload({stream: true}));
 });
 
-//настройки сервера для browser sync c адресом http://localhost:8080
+//config for browser sync with URL: http://localhost:8080
 gulp.task('browserSync', function () {
   browserSync({
     server: {
-      //путь до файла index.html
+      //path to index.html
       baseDir: 'src',
     },
     ui: {
@@ -51,7 +51,7 @@ gulp.task('browserSync', function () {
 
 //start develop
 gulp.task('start', function (callback) {
-  runSequence(['startJson', 'browserSync'],
+  runSequence([/*'startJson',*/ 'browserSync'],
     'watch',
     callback);
 });
@@ -61,6 +61,6 @@ gulp.task('watch', function () {
   gulp.watch('src/sass/**/*sass', ['sass']);
   gulp.watch('src/*.html', browserSync.reload);
   gulp.watch('src/script/**/*.js', browserSync.reload);
-  gulp.watch('src/json/**/*.json', ['startJson', browserSync.reload]);
+  // gulp.watch('src/json/**/*.json', ['startJson', browserSync.reload]);
 });
 
