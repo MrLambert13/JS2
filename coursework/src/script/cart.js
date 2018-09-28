@@ -1,19 +1,8 @@
 "use strict";
 
-/*
-<div class="row flex">
-
-  <div class="subtotal">
-    <p class="cardPrice__text">$300</p>
-  </div>
-  
-  <div class="action">
-    <a class="action__del" href="#"><i class="fas fa-times-circle"></i></a>
-  </div>
-  
-</div>
-*/
-
+/**
+ * Build Main cart page with input, remove function
+ */
 function buildBigCart() {
   var checkUrl = /cart.html/;
   var currentUrl = document.location.href;
@@ -75,7 +64,8 @@ function buildBigCart() {
               type: 'number',
               value: item.quantity,
               'data-id': item.id,
-              min: '1'
+              min: '1',
+              max: '10'
             });
             $divQuantity.append($inputQuantity);
             $divRowItem.append($divQuantity);
@@ -107,18 +97,16 @@ function buildBigCart() {
             );
             $divRowItem.append($divRemove);
 
+            //total price
             $subtotal.text('Sub total: $' + subtotal.toFixed(2));
-            if(!promo) {
-              $grandtotal.text(': $' + subtotal.toFixed(2));
+            if (!promo) {
+              $grandtotal.text('$' + subtotal.toFixed(2));
             }
           });
         }
       }
     });
-  } else {
-
   }
-
 }
 
 /**
@@ -129,6 +117,7 @@ function buildBigCart() {
 function buildNumber(count) {
   if (count > 0) {
     var $cartImg = $('.cart-hov');
+    $('.cart__number').remove();
     $cartImg.append(
       $('<div />', {class: 'cart__number'}).text(count)
     );
@@ -167,7 +156,6 @@ function buildMiniCart() {
                         href: '#',
                         'data-quantity': item.quantity,
                         'data-id': item.id
-
                       })
                       .append(
                         $('<img />').attr({
@@ -214,10 +202,8 @@ function buildMiniCart() {
                   )
               )
           );
-          totalCount += item.quantity;
+          totalCount += +item.quantity;
           totalPrice += item.quantity * item.price;
-          // console.log(totalPrice.toFixed(2));
-          buildNumber(totalCount);
         });
         $cart.append(
           $('<div />')
@@ -227,6 +213,7 @@ function buildMiniCart() {
               $('<span />').addClass('menuCart__total_text').text('$' + totalPrice.toFixed(2))
             )
         );
+        buildNumber(totalCount);
       }
     }
   });
@@ -296,25 +283,31 @@ function addToCart(target) {
     })
   }
 }
+
+/**
+ *
+ * @param target {HTMLElement} - changed input element in DOM
+ */
 function changeInCart(target) {
   //get id
   var id = target.dataset.id;
-  console.log(target);
-  var entity = $('#cart [data-id="' + target.dataset.id + '"]');
-    $.ajax({
-      url: 'http://localhost:3000/cart/' + id,
-      type: 'PATCH',
-      headers: {
-        'content-type': 'application/json',
-      },
-      data: JSON.stringify({
-        quantity: target.value,
-      }),
-      success: function () {
-        // rebuld cart
-        buildMiniCart();
-      }
-    })
+  //count of good must be in 1-10
+  target.value = (target.value < 1) ? 1 : target.value;
+  target.value = (target.value > 10) ? 10 : target.value;
+  $.ajax({
+    url: 'http://localhost:3000/cart/' + id,
+    type: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+    },
+    data: JSON.stringify({
+      quantity: target.value,
+    }),
+    success: function () {
+      // rebuld cart
+      buildMiniCart();
+    }
+  })
 
 }
 
