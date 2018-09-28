@@ -25,6 +25,16 @@
     $('#bigCart').on('change', '.quantity__input', function (event) {
       changeInCart(event.target);
     });
+    
+    //Add event in clear cart click
+    $('#clearCart').click(function () {
+      var arrayOfGoodId =[];
+      var cartObj = $('#bigCart .quantity__input');
+      for (var key in cartObj) {
+        arrayOfGoodId.push(cartObj[key].dataset.id);
+      }
+      console.log(arrayOfGoodId);
+    });
 
   });
 })(jQuery);
