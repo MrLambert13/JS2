@@ -3,18 +3,6 @@
 /*
 <div class="row flex">
 
-  <div class="cardPrice">
-    <p class="cardPrice__text">$150</p>
-  </div>
-  
-  <div class="quantity flex-aic">
-    <input class="quantity__input" type="number" value="2" min="1">
-  </div>
-  
-  <div class="ship">
-    <p class="ship__text">FREE</p>
-  </div>
-  
   <div class="subtotal">
     <p class="cardPrice__text">$300</p>
   </div>
@@ -32,6 +20,11 @@ function buildBigCart() {
   //if this opened
   if (checkUrl.test(currentUrl)) {
     var $cartBig = $('#bigCart');
+    $cartBig.empty();
+    var subtotal = 0;
+    var $subtotal = $('#subtotal');
+    var $grandtotal = $('#grandtotal');
+    var promo = false;
     $.ajax({
       url: 'http://localhost:3000/cart',
       dataType: 'json',
@@ -71,7 +64,7 @@ function buildBigCart() {
 
             //column 3 - Unite price
             var $divPrice = $('<div />', {class: 'cardPrice'});
-            $divPrice = $('<p />', {class: 'cardPrice__text'}).text('$' + (+item.price).toFixed(2));
+            $divPrice.append($('<p />', {class: 'cardPrice__text'}).text('$' + (+item.price).toFixed(2)));
             $divRowItem.append($divPrice);
 
             //column 4 - QUANTITY
@@ -81,6 +74,7 @@ function buildBigCart() {
               class: 'quantity__input',
               type: 'number',
               value: item.quantity,
+              'data-id': item.id,
               min: '1'
             });
             $divQuantity.append($inputQuantity);
@@ -88,11 +82,35 @@ function buildBigCart() {
 
             //column 5 - shipping
             var $divShip = $('<div />', {class: 'ship'});
-            console.log(item.shipping);
             $divShip.append(
               $('<p />', {class: 'ship__text'}).text(item.shipping)
             );
             $divRowItem.append($divShip);
+
+            //column 6 - SUBTOTAL
+            subtotal += item.quantity * item.price;
+            var $divSubtotal = $('<div />', {class: 'subtotal'});
+            $divSubtotal.append(
+              $('<p />', {class: 'cardPrice__text'}).text('$' + (item.quantity * item.price).toFixed(2))
+            );
+            $divRowItem.append($divSubtotal);
+
+
+            //column 7 - REMOVE btn
+            var $divRemove = $('<div />', {class: 'action'});
+            $divRemove.append(
+              $('<a />', {
+                href: "#",
+                class: 'action__del',
+                'data-id': item.id
+              }).append($('<i />', {class: 'fas fa-times-circle'}))
+            );
+            $divRowItem.append($divRemove);
+
+            $subtotal.text('Sub total: $' + subtotal.toFixed(2));
+            if(!promo) {
+              $grandtotal.text(': $' + subtotal.toFixed(2));
+            }
           });
         }
       }
@@ -277,6 +295,27 @@ function addToCart(target) {
       }
     })
   }
+}
+function changeInCart(target) {
+  //get id
+  var id = target.dataset.id;
+  console.log(target);
+  var entity = $('#cart [data-id="' + target.dataset.id + '"]');
+    $.ajax({
+      url: 'http://localhost:3000/cart/' + id,
+      type: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+      },
+      data: JSON.stringify({
+        quantity: target.value,
+      }),
+      success: function () {
+        // rebuld cart
+        buildMiniCart();
+      }
+    })
+
 }
 
 //remove good from cart

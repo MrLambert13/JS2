@@ -166,65 +166,7 @@
     <div class="cartParent">
       <div class="container paddingvertical50">
         <article id="bigCart" class="cart">
-
-          <div class="row flex headrow">
-            <div class="detail flex-aic liStyle-none">
-              <span>Product Details</span>
-            </div>
-            <div class="cardPrice">
-              <span>unite Price</span>
-            </div>
-            <div class="quantity flex-aic">
-              <span>Quantity</span>
-            </div>
-            <div class="ship">
-              <span>shipping</span>
-            </div>
-            <div class="subtotal">
-              <span>Subtotal</span>
-            </div>
-            <div class="action">
-              <span>ACTION</span>
-            </div>
-          </div>
           <!--add goods from cart here-->
-          <div class="row flex">
-            <div class="detail flex-aic liStyle-none">
-
-              <div class="img-scale">
-                <a href="#"><img src="img/cartprod1.jpg" alt="prod1"></a>
-              </div>
-
-              <div>
-                <a href="#"><h3 class="detail__prodName">Mango People T-shirt</h3></a>
-                <p class="detail__prodChar">Color: <span class="detail__prodChar-gray">RED</span></p>
-                <p class="detail__prodChar">Size: <span class="detail__prodChar-gray">Xll</span></p>
-              </div>
-
-            </div>
-
-            <div class="cardPrice">
-              <p class="cardPrice__text">$150</p>
-            </div>
-
-            <div class="quantity flex-aic">
-              <input class="quantity__input" type="number" value="2" min="1">
-            </div>
-
-            <div class="ship">
-              <p class="ship__text">FREE</p>
-            </div>
-
-            <div class="subtotal">
-              <p class="cardPrice__text">$300</p>
-            </div>
-
-            <div class="action">
-              <a class="action__del" href="#"><i class="fas fa-times-circle"></i></a>
-            </div>
-
-          </div>
-
         </article>
         <div class="cartButtons flex-jcsb liStyle-none">
           <a href="#" class="cartButtons__btn">cLEAR SHOPPING CART</a>
@@ -251,9 +193,9 @@
           </div>
           <div class="total liStyle-none">
             <div class="total__hr">
-              <p class="total__text-sub">Sub total&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;$900</p>
-              <h2 class="total__text-grand">GRAND TOTAL&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;<span
-                      class="total__text-priceRED">$900</span></h2>
+              <p id="subtotal" class="total__text-sub"></p>
+              <h2 class="total__text-grand">GRAND TOTAL<span id="grandtotal"
+                      class="total__text-priceRED"></span></h2>
             </div>
             <a href="checkout.html" class="total__check ">proceed to checkout</a>
           </div>

@@ -16,14 +16,19 @@
     });
 
     //Add event on btn remove good
-    $('#cart').on('click', '.action__del', function (event) {
-      console.log(event);
-      console.log(event.target);
-      console.log(event.currentTarget);
+    $('#cart, #bigCart').on('click', '.action__del', function (event) {
       removeFromCart(event.currentTarget);
+      event.preventDefault();
     });
+
+    //Add event on input quantity changed
+    $('#bigCart').on('change', '.quantity__input', function (event) {
+      changeInCart(event.target);
+    });
+
   });
 })(jQuery);
+
 
 
 
@@ -55,7 +60,7 @@ function loadGoods() {
             'data-price': elem.price,
             'data-srcImg': elem.image,
             'data-color': elem.color,
-            'data-size': elem.color,
+            'data-size': elem.size,
             'data-shipping': elem.shipping
           //TODO сюда добавлять новые данные
           })
