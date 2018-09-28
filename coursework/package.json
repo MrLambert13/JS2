@@ -17,6 +17,7 @@
     "browser-sync": "^2.24.7",
     "gulp-sass": "^4.0.1",
     "jQuery": "^1.7.4",
+    "jqueryui": "^1.11.1",
     "npm": "^6.4.1"
   },
   "devDependencies": {

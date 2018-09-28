@@ -103,36 +103,5 @@
       "shipping": "free"
     }
   ],
-  "cart": [
-    {
-      "id": "1",
-      "quantity": "3",
-      "name": "Woman t-shirt",
-      "price": "108",
-      "image": "img/item2.jpg",
-      "color": "red",
-      "size": "s",
-      "shipping": "free"
-    },
-    {
-      "id": "2",
-      "quantity": 1,
-      "name": "jacket",
-      "price": "77",
-      "image": "img/item3.jpg",
-      "color": "blue",
-      "size": "m",
-      "shipping": "free"
-    },
-    {
-      "id": "0",
-      "quantity": 1,
-      "name": "Mango t-shirt",
-      "price": "92",
-      "image": "img/item1.jpg",
-      "color": "white",
-      "size": "xxl",
-      "shipping": "free"
-    }
-  ]
+  "cart": []
 }

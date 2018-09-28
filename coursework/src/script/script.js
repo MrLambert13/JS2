@@ -6,6 +6,8 @@
     loadGoods();
     //Load cart from db.json/cart to mini cart
     buildMiniCart();
+    //load authorization
+
 
 
     //Add event on btn 'Add to cart'
@@ -28,13 +30,24 @@
     
     //Add event in clear cart click
     $('#clearCart').click(function () {
-      var arrayOfGoodId =[];
       var cartObj = $('#bigCart .quantity__input');
       for (var key in cartObj) {
-        arrayOfGoodId.push(cartObj[key].dataset.id);
+        if (!isNaN(key)) {
+          removeFromCart(cartObj[key]);
+        }
       }
-      console.log(arrayOfGoodId);
     });
+
+    //add event for authorization
+    $('.headerRight__account').click(function (event) {
+      buildAuthorizationForm();
+      event.preventDefault();
+
+
+
+    });
+
+
 
   });
 })(jQuery);
