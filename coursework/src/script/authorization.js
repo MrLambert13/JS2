@@ -47,17 +47,17 @@ function buildAuthorizationForm() {
           text: 'New user?',
           href: '#'
         })
-        )
+      )
     );
     $('.header__flex-right').append($divAuthorization);
 
-    //cancel
+    //button cancel
     $('.authorization__btn:last').click(function (event) {
       $('div.authorization').remove();
       event.preventDefault();
     });
 
-    //login
+    //button login
     $('.authorization__btn:first').click(function (event) {
       checkInputs();
       event.preventDefault();
@@ -70,12 +70,79 @@ function checkInputs() {
   var log = $('#login').val();
   var pass = $('#password').val();
 
-  if (log && pass){
-
+  if (log && pass) {
+    getLoginFromDB(function (user) {
+      if (log === user) {
+        addWarning('Login is busy');
+        return;
+      } else {
+        addToUsersDB(log, pass);
+      }
+    });
   } else {
-    $('div.authorization').append(
-      $('<p />', {class: 'warning'}).text('Please, input log and pass')
-    );
+    addWarning('Please, input log and pass');
   }
 
+}
+
+function addToUsersDB(userLogin, userPassword) {
+  var currentCart = null;
+  getCurrentCart(function (cart) {
+    currentCart = cart;
+    console.log(currentCart);
+  });
+  console.log(currentCart);
+
+  /*$.ajax({
+    url: 'http://localhost:3000/users',
+    type: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    data: JSON.stringify({
+      login: userLogin,
+      pass: userPassword,
+      policy: 'users',
+    }),
+  })*/
+}
+
+/**
+ * Add warning message in login window
+ * @param text {string} - warning text for show
+ */
+function addWarning(text) {
+  $('div.authorization').append(
+    $('<p />', {class: 'warning'}).text(text)
+  );
+}
+
+/**
+ * Get login from DB and give to callback it
+ * @param callback {function} - function where do some action with login
+ */
+function getLoginFromDB(callback) {
+  $.ajax({
+    url: 'http://localhost:3000/users',
+    dataType: 'json',
+    success: function (users) {
+      users.forEach(function (user) {
+        callback(user.login);
+      });
+    }
+  });
+}
+
+/**
+ * Get current cart, when user registration (else cart is be lost)
+ * @param callback {function} - for work with cart
+ */
+function getCurrentCart(callback) {
+  $.ajax({
+    url: 'http://localhost:3000/cart',
+    dataType: 'json',
+    success: function (data) {
+      callback(data);
+    }
+  });
 }

@@ -1,5 +1,7 @@
 "use strict";
 
+var isLogin = false;
+
 (function ($) {
   $('document').ready(function () {
     //Load all goods from db.json/goods
@@ -52,7 +54,7 @@
   });
 })(jQuery);
 
-
+111
 
 
 
