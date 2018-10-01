@@ -65,19 +65,24 @@ function buildAuthorizationForm() {
   }
 }
 
+/**
+ * Check inputs, for registration
+ */
 function checkInputs() {
   $('.warning').remove();
   var log = $('#login').val();
   var pass = $('#password').val();
 
   if (log && pass) {
-    getLoginFromDB(function (user) {
-      if (log === user) {
-        addWarning('Login is busy');
-        return;
-      } else {
-        addToUsersDB(log, pass);
+    getUserFromDB(function (user, password) {
+      var findUser = false;
+      if (log === user && pass === password) {
+        findUser = true;
       }
+      if (!findUser) {
+        addWarning('Login/password incorrect')
+      }
+
     });
   } else {
     addWarning('Please, input log and pass');
@@ -85,6 +90,11 @@ function checkInputs() {
 
 }
 
+/**
+ * Registration for new users
+ * @param userLogin {string} - login
+ * @param userPassword - password
+ */
 function addToUsersDB(userLogin, userPassword) {
   var currentCart = null;
   getCurrentCart(function (cart) {
@@ -121,13 +131,13 @@ function addWarning(text) {
  * Get login from DB and give to callback it
  * @param callback {function} - function where do some action with login
  */
-function getLoginFromDB(callback) {
+function getUserFromDB(callback) {
   $.ajax({
     url: 'http://localhost:3000/users',
     dataType: 'json',
     success: function (users) {
       users.forEach(function (user) {
-        callback(user.login);
+        callback(user.login, user.pass);
       });
     }
   });
