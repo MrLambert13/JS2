@@ -1,17 +1,14 @@
 "use strict";
 
-var isLogin = false;
-
 (function ($) {
   $('document').ready(function () {
+//TODO close menu account on overout
+    //check is user authorized
+    checkCoockieForUserName();
     //Load all goods from db.json/goods
     loadGoods();
     //Load cart from db.json/cart to mini cart
     buildMiniCart();
-    //load authorization
-
-
-
     //Add event on btn 'Add to cart'
     $('#goods').on('click', '.item__card-link', function (event) {
       // console.log(event.target.dataset.id);
@@ -40,23 +37,8 @@ var isLogin = false;
       }
     });
 
-    //add event for authorization
-    $('.headerRight__account').click(function (event) {
-      buildAuthorizationForm();
-      event.preventDefault();
-
-
-
-    });
-
-
-
   });
 })(jQuery);
-
-111
-
-
 
 /**
  * load goods from db.json/goods

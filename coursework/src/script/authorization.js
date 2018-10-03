@@ -74,15 +74,20 @@ function checkInputs() {
   var pass = $('#password').val();
 
   if (log && pass) {
-    getUserFromDB(function (user, password) {
-      var findUser = false;
-      if (log === user && pass === password) {
-        findUser = true;
-      }
-      if (!findUser) {
+    getUserFromDB(function (users) {
+      var userFind = false;
+      users.forEach(function (oneUser) {
+        if (oneUser.login === log && oneUser.pass === pass) {
+          userFind = true;
+          //TODO setCookieUserLogin(log);
+          setCookie('userLogin', oneUser.login);
+          setCookie('userPassword', oneUser.pass);
+          checkCoockieForUserName();
+        }
+      });
+      if (!userFind) {
         addWarning('Login/password incorrect')
       }
-
     });
   } else {
     addWarning('Please, input log and pass');
@@ -102,7 +107,7 @@ function addToUsersDB(userLogin, userPassword) {
     console.log(currentCart);
   });
   console.log(currentCart);
-
+  // TODO something :D
   /*$.ajax({
     url: 'http://localhost:3000/users',
     type: 'POST',
@@ -136,9 +141,7 @@ function getUserFromDB(callback) {
     url: 'http://localhost:3000/users',
     dataType: 'json',
     success: function (users) {
-      users.forEach(function (user) {
-        callback(user.login, user.pass);
-      });
+      callback(users);
     }
   });
 }
@@ -155,4 +158,196 @@ function getCurrentCart(callback) {
       callback(data);
     }
   });
+}
+
+/**
+ * Check if user already authorized
+ */
+function checkCoockieForUserName() {
+  var $accountButton = $('.headerRight__account');
+  $accountButton.unbind('click');
+  //close Sign in window
+  $('.authorization').remove();
+  if (!getCookie('userLogin')) {
+    //set account text standart
+    $accountButton.text('My Account ').append($('<i />', {class: 'fas fa-caret-down'}));
+    //add event for authorization
+    $accountButton.click(function (event) {
+      buildAuthorizationForm();
+      event.preventDefault();
+    });
+  } else {
+    $accountButton.text('Hello, ' + getCookie('userLogin'));
+    //TODO menu for authorized user
+    $accountButton.click(function (event) {
+      buildMenuUser();
+      event.preventDefault();
+    });
+  }
+}
+
+/**
+ * Build menu for change profile and logout
+ */
+function buildMenuUser() {
+  if ($('div.authorization').length !== 0) {
+    $('div.authorization').remove();
+  } else {
+    var $divUserMenu = $('<div />', {class: 'authorization'});
+    $divUserMenu.append(
+      $('<div />', {class: 'flex-jcsb'}).append(
+        //left column with name of properties
+        $('<div />', {class: 'divNameOfProp'}).append(
+          $('<p />', {class: 'propName'}).text('Name:'),
+          $('<p />', {class: 'propName'}).text('Password:'),
+          $('<p />', {class: 'propName'}).text('E-mail:'),
+          $('<p />', {class: 'propName'}).text('Gender:'),
+          $('<p />', {class: 'propName'}).text('Credit card:'),
+          $('<p />', {class: 'propName'}).text('About:')
+        ),
+        //right column with value of properties
+        $('<div />', {class: 'divValueOfProp'}).append(
+          $('<p />', {class: 'propValue', id: 'log'}),
+          $('<p />', {class: 'propValue', id: 'pass'}),
+          $('<p />', {class: 'propValue', id: 'email'}),
+          $('<p />', {class: 'propValue', id: 'gender'}),
+          $('<p />', {class: 'propValue', id: 'creditCard'}),
+          $('<p />', {class: 'propValue', id: 'bio'})
+        )
+      ),
+      $('<div />', {class: 'flex-jcsa'}).append(
+        $('<a />', {class: 'authorization__btn', id: 'multiBtnLeft'}).text('Exit'),
+        $('<a />', {class: 'authorization__btn', id: 'multiBtnRight'}).text('Change')
+      )
+    );
+
+    //fill value
+    var log = getCookie('userLogin');
+    var pass = getCookie('userPassword');
+    getUserFromDB(function (users) {
+      users.forEach(function (thisUser) {
+        if (thisUser.login === log && thisUser.pass === pass) {
+          $('#log').text(thisUser.login);
+          $('#pass').text(thisUser.pass);
+          $('#email').text(thisUser.email);
+          $('#gender').text(thisUser.gender);
+          $('#creditCard').text(thisUser.creditCard);
+          $('#bio').text(thisUser.bio);
+        }
+      });
+    });
+
+    //add main div in DOM
+    $('.header__flex-right').append($divUserMenu);
+
+    if ($('#multiBtnLeft').text() === 'Exit') {
+      $('#multiBtnLeft').click(function (event) {
+        //do logout
+        deleteCookie('userLogin');
+        deleteCookie('userPassword');
+        checkCoockieForUserName();
+      });
+    }
+    if ($('#multiBtnRight').text() === 'Change') {
+      $('#multiBtnRight').click(function () {
+        var $divValue = $('.divValueOfProp');
+        //do change profile
+        // convertTextToInput('#log');
+        for (var key in $divValue.children()) {
+          convertTextToInput('#' + $divValue.children()[key].id);
+        }
+        //delete eventlistener
+        //change button to save and cancel
+        changeMultiButton();
+
+
+      });
+    }
+  }
+}
+
+function changeMultiButton() {
+  var $right = $('#multiBtnRight');
+  var $left = $('#multiBtnLeft');
+
+  $right.unbind();
+  $right.text('Cancel');
+
+
+  $left.unbind();
+  $left.text('Save');
+  $left.addClass('btn_save');
+
+  $right.click(function () {
+    $('div.authorization').remove();
+  });
+  $left.click(function () {
+    //TODO save change, change cookie, check cookie
+  });
+}
+
+/**
+ * change p to input
+ * @param idText {string} - id of element
+ */
+function convertTextToInput(idText) {
+  var currentVal = $(idText).text();
+  //replace text on input
+  var $newInput = $('<input />', {id: idText.slice(1), value: currentVal});
+  $(idText).replaceWith($newInput);
+}
+
+/**
+ * Search in cookie user login
+ * @param name {string} - User login for search
+ * @return {any} - undefined if not found name user, or return it's name
+ */
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+/**
+ * Save data in cookies
+ * @param name {string} - name for data save
+ * @param value {string} - value this data
+ * @param options {object} - advanced option for cookie
+ */
+function setCookie(name, value, options) {
+  options = options || {};
+  var expires = options.expires;
+
+  if (typeof expires === "number" && expires) {
+    var d = new Date();
+    d.setTime(d.getTime() + expires * 1000);
+    expires = options.expires = d;
+  }
+  if (expires && expires.toUTCString) {
+    options.expires = expires.toUTCString();
+  }
+  //secure value
+  value = encodeURIComponent(value);
+
+  var updatedCookie = name + "=" + value;
+
+  for (var propName in options) {
+    updatedCookie += "; " + propName;
+    var propValue = options[propName];
+    if (propValue !== true) {
+      updatedCookie += "=" + propValue;
+    }
+  }
+  document.cookie = updatedCookie;
+}
+
+/**
+ * Function for delete cookie with "name", over change date
+ * @param name {string} - name of cookie
+ */
+function deleteCookie(name) {
+  setCookie(name, "", {
+    expires: -1
+  })
 }

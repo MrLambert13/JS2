@@ -5,13 +5,21 @@
       "login": "admin",
       "pass": "admin",
       "policy": "admins",
+      "email": "admin@domen.com",
+      "gender": "m",
+      "creditCard": "1234-5678-90",
+      "bio": "I'm admin!",
       "cart": []
     },
     {
       "id": 1,
       "login": "test",
-      "pass": "test",
+      "pass": "1234",
       "policy": "users",
+      "email": "test@domen.com",
+      "gender": "f",
+      "creditCard": "4321-5678-90",
+      "bio": "I'm test user!",
       "cart": []
     },
     {
@@ -19,6 +27,10 @@
       "login": "test2",
       "pass": "test2",
       "policy": "users",
+      "email": "test2@domen.com",
+      "gender": "m",
+      "creditCard": "1234-8765-90",
+      "bio": "I'm test user 2!",
       "cart": []
     }
   ],
@@ -115,7 +127,7 @@
   "cart": [
     {
       "id": "0",
-      "quantity": 2,
+      "quantity": 1,
       "name": "Mango t-shirt",
       "price": "92",
       "image": "img/item1.jpg",
@@ -125,7 +137,7 @@
     },
     {
       "id": "1",
-      "quantity": 1,
+      "quantity": 2,
       "name": "Woman t-shirt",
       "price": "108",
       "image": "img/item2.jpg",
