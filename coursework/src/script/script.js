@@ -2,7 +2,7 @@
 
 (function ($) {
   $('document').ready(function () {
-//TODO close menu account on overout
+    //TODO close menu account on overout
     //check is user authorized
     checkCoockieForUserName();
     //Load all goods from db.json/goods
@@ -69,7 +69,6 @@ function loadGoods() {
             'data-color': elem.color,
             'data-size': elem.size,
             'data-shipping': elem.shipping
-          //TODO сюда добавлять новые данные
           })
             .text('Add to cart')
         );

@@ -3,7 +3,7 @@
     {
       "id": 0,
       "login": "admin",
-      "pass": "admin",
+      "pass": "admin1234",
       "policy": "admins",
       "email": "admin@domen.com",
       "gender": "m",
@@ -14,7 +14,7 @@
     {
       "id": 1,
       "login": "test",
-      "pass": "1234",
+      "pass": "1111",
       "policy": "users",
       "email": "test@domen.com",
       "gender": "f",
@@ -32,6 +32,16 @@
       "creditCard": "1234-8765-90",
       "bio": "I'm test user 2!",
       "cart": []
+    },
+    {
+      "login": "user",
+      "pass": "qwe",
+      "email": "user@mail.ru",
+      "gender": "f",
+      "creditCard": "1234432112",
+      "bio": "i am noob",
+      "cart": [],
+      "id": 3
     }
   ],
   "goods": [

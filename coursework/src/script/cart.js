@@ -274,7 +274,6 @@ function addToCart(target) {
         color: target.dataset.color,
         size: target.dataset.size,
         shipping: target.dataset.shipping
-        //TODO новые данные
       }),
       success: function () {
         // rebuld cart

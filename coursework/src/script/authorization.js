@@ -45,7 +45,8 @@ function buildAuthorizationForm() {
         $('<a />', {
           class: 'authorization__hint',
           text: 'New user?',
-          href: '#'
+          href: '#',
+          id: 'createUser'
         })
       )
     );
@@ -56,10 +57,14 @@ function buildAuthorizationForm() {
       $('div.authorization').remove();
       event.preventDefault();
     });
-
     //button login
     $('.authorization__btn:first').click(function (event) {
       checkInputs();
+      event.preventDefault();
+    });
+    //new user click
+    $('#createUser').click(function (event) {
+      buildMenuregistration();
       event.preventDefault();
     });
   }
@@ -79,7 +84,8 @@ function checkInputs() {
       users.forEach(function (oneUser) {
         if (oneUser.login === log && oneUser.pass === pass) {
           userFind = true;
-          //TODO setCookieUserLogin(log);
+          //set cookie for user login, pass ann ID
+          setCookie('userId', oneUser.id);
           setCookie('userLogin', oneUser.login);
           setCookie('userPassword', oneUser.pass);
           checkCoockieForUserName();
@@ -92,7 +98,6 @@ function checkInputs() {
   } else {
     addWarning('Please, input log and pass');
   }
-
 }
 
 /**
@@ -240,14 +245,17 @@ function buildMenuUser() {
     //add main div in DOM
     $('.header__flex-right').append($divUserMenu);
 
+    //click exit
     if ($('#multiBtnLeft').text() === 'Exit') {
       $('#multiBtnLeft').click(function (event) {
         //do logout
+        deleteCookie('userId');
         deleteCookie('userLogin');
         deleteCookie('userPassword');
         checkCoockieForUserName();
       });
     }
+    //click change
     if ($('#multiBtnRight').text() === 'Change') {
       $('#multiBtnRight').click(function () {
         var $divValue = $('.divValueOfProp');
@@ -259,13 +267,84 @@ function buildMenuUser() {
         //delete eventlistener
         //change button to save and cancel
         changeMultiButton();
-
-
       });
     }
   }
 }
 
+/**
+ * Build menu for change profile and logout
+ */
+function buildMenuregistration() {
+  $('div.authorization').remove();
+  var $divUserMenu = $('<div />', {class: 'authorization'});
+  $divUserMenu.append(
+    $('<div />', {class: 'flex-jcsb'}).append(
+      //left column with name of properties
+      $('<div />', {class: 'divNameOfProp'}).append(
+        $('<p />', {class: 'propName'}).text('Name:'),
+        $('<p />', {class: 'propName'}).text('Password:'),
+        $('<p />', {class: 'propName'}).text('E-mail:'),
+        $('<p />', {class: 'propName'}).text('Gender:'),
+        $('<p />', {class: 'propName'}).text('Credit card:'),
+        $('<p />', {class: 'propName'}).text('About:')
+      ),
+      //right column with value of properties
+      $('<div />', {class: 'divValueOfProp'}).append(
+        $('<input />', {class: 'propValue', id: 'log'}),
+        $('<input />', {class: 'propValue', id: 'pass'}),
+        $('<input />', {class: 'propValue', id: 'email'}),
+        $('<input />', {class: 'propValue', id: 'gender'}),
+        $('<input />', {class: 'propValue', id: 'creditCard'}),
+        $('<input />', {class: 'propValue', id: 'bio'})
+      )
+    ),
+    $('<div />', {class: 'flex-jcsa'}).append(
+      $('<a />', {class: 'authorization__btn', id: 'multiBtnLeft'}).text('Exit'),
+      $('<a />', {class: 'authorization__btn', id: 'multiBtnRight'}).text('Create')
+    )
+  );
+  //add main div in DOM
+  $('.header__flex-right').append($divUserMenu);
+  //click exit
+  if ($('#multiBtnLeft').text() === 'Exit') {
+    $('#multiBtnLeft').click(function (event) {
+      $('div.authorization').remove();
+    });
+  }
+  //click save
+  if ($('#multiBtnRight').text() === 'Create') {
+    $('#multiBtnRight').click(function () {
+      $.ajax({
+        url: 'http://localhost:3000/users',
+        type: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: JSON.stringify({
+          login: $('#log').val(),
+          pass: $('#pass').val(),
+          email: $('#email').val(),
+          gender: $('#gender').val(),
+          creditCard: $('#creditCard').val(),
+          bio: $('#bio').val(),
+          cart: []
+        }),
+        success: function (data) {
+          setCookie('userId', data.id);
+          setCookie('userLogin', data.login);
+          setCookie('userPassword', data.pass);
+          $('div.authorization').remove();
+          checkCoockieForUserName();
+        }
+      });
+    });
+  }
+}
+
+/**
+ * change button when user want to change self profile
+ */
 function changeMultiButton() {
   var $right = $('#multiBtnRight');
   var $left = $('#multiBtnLeft');
@@ -278,11 +357,37 @@ function changeMultiButton() {
   $left.text('Save');
   $left.addClass('btn_save');
 
+  //click on cancel button
   $right.click(function () {
     $('div.authorization').remove();
   });
+  //click on save button
   $left.click(function () {
     //TODO save change, change cookie, check cookie
+    var id = getCookie('userId');
+    $.ajax({
+      url: 'http://localhost:3000/users/' + id,
+      type: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+      },
+      data: JSON.stringify({
+        login: $('#log').val(),
+        pass: $('#pass').val(),
+        email: $('#email').val(),
+        gender: $('#gender').val(),
+        creditCard: $('#creditCard').val(),
+        bio: $('#bio').val()
+      }),
+      success: function () {
+        deleteCookie('userLogin');
+        deleteCookie('userPassword');
+        setCookie('userLogin', $('#log').val());
+        setCookie('userPassword', $('#pass').val());
+        $('div.authorization').remove();
+        checkCoockieForUserName();
+      }
+    });
   });
 }
 
