@@ -154,6 +154,37 @@
       "color": "red",
       "size": "s",
       "shipping": "free"
+    },
+    {
+      "id": "5",
+      "quantity": 1,
+      "name": "jacket",
+      "price": "99.99",
+      "image": "img/item6.jpg",
+      "color": "gray",
+      "size": "L",
+      "shipping": "free"
+    },
+    {
+      "id": "3",
+      "quantity": 1,
+      "name": "flower dress",
+      "price": "130",
+      "image": "img/item4.jpg",
+      "color": "flower",
+      "size": "s",
+      "shipping": "free"
+    },
+    {
+      "id": "6",
+      "quantity": 1,
+      "name": "pants",
+      "price": "57.3",
+      "image": "img/item7.jpg",
+      "color": "cream",
+      "size": "XL",
+      "shipping": "free"
     }
-  ]
+  ],
+  "feedbacks": []
 }

@@ -88,6 +88,7 @@ function checkInputs() {
           setCookie('userId', oneUser.id);
           setCookie('userLogin', oneUser.login);
           setCookie('userPassword', oneUser.pass);
+          setCookie('userGroup', oneUser.policy);
           checkCoockieForUserName();
         }
       });
@@ -183,7 +184,6 @@ function checkCoockieForUserName() {
     });
   } else {
     $accountButton.text('Hello, ' + getCookie('userLogin'));
-    //TODO menu for authorized user
     $accountButton.click(function (event) {
       buildMenuUser();
       event.preventDefault();
@@ -245,6 +245,15 @@ function buildMenuUser() {
     //add main div in DOM
     $('.header__flex-right').append($divUserMenu);
 
+    //feedback button for admin
+    if (getCookie('userGroup') === 'admins') {
+      console.log($('#multiBtnLeft'));
+      $('#multiBtnLeft').after(
+        $('<a />', {class: 'authorization__btn', id: 'btnFeedback', ref: 'feedback.html'})
+          .text('Feedback')
+      );
+    }
+
     //click exit
     if ($('#multiBtnLeft').text() === 'Exit') {
       $('#multiBtnLeft').click(function (event) {
@@ -252,6 +261,7 @@ function buildMenuUser() {
         deleteCookie('userId');
         deleteCookie('userLogin');
         deleteCookie('userPassword');
+        deleteCookie('userGroup');
         checkCoockieForUserName();
       });
     }
@@ -334,6 +344,7 @@ function buildMenuregistration() {
           setCookie('userId', data.id);
           setCookie('userLogin', data.login);
           setCookie('userPassword', data.pass);
+          setCookie('userGroup', data.policy);
           $('div.authorization').remove();
           checkCoockieForUserName();
         }
@@ -363,7 +374,7 @@ function changeMultiButton() {
   });
   //click on save button
   $left.click(function () {
-    //TODO save change, change cookie, check cookie
+    //save change, change cookie, check cookie
     var id = getCookie('userId');
     $.ajax({
       url: 'http://localhost:3000/users/' + id,
