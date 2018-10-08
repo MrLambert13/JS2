@@ -247,10 +247,9 @@ function buildMenuUser() {
 
     //feedback button for admin
     if (getCookie('userGroup') === 'admins') {
-      console.log($('#multiBtnLeft'));
       $('#multiBtnLeft').after(
         $('<a />', {class: 'authorization__btn', id: 'btnFeedback', ref: 'feedback.html'})
-          .text('Feedback')
+          .text('Fb')
       );
     }
 
