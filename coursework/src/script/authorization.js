@@ -1,5 +1,14 @@
 "use strict";
 
+/**
+ * Close menu for account's action
+ */
+function closeMenuAccount() {
+  $('.authorization').mouseleave(function () {
+    this.remove();
+  });
+}
+
 /**+
  * show authorization menu or hide it
  */
@@ -67,6 +76,7 @@ function buildAuthorizationForm() {
       buildMenuregistration();
       event.preventDefault();
     });
+    closeMenuAccount();
   }
 }
 
@@ -248,7 +258,7 @@ function buildMenuUser() {
     //feedback button for admin
     if (getCookie('userGroup') === 'admins') {
       $('#multiBtnLeft').after(
-        $('<a />', {class: 'authorization__btn', id: 'btnFeedback', ref: 'feedback.html'})
+        $('<a />', {class: 'authorization__btn', id: 'btnFeedback', href: 'feedback.html'})
           .text('Fb')
       );
     }
@@ -278,6 +288,7 @@ function buildMenuUser() {
         changeMultiButton();
       });
     }
+    closeMenuAccount();
   }
 }
 
@@ -350,6 +361,7 @@ function buildMenuregistration() {
       });
     });
   }
+  closeMenuAccount();
 }
 
 /**

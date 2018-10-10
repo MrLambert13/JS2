@@ -186,5 +186,26 @@
       "shipping": "free"
     }
   ],
-  "feedbacks": []
+  "feedback": [
+    {
+      "id": 1,
+      "text": "Feedback 1",
+      "status": "add"
+    },
+    {
+      "id": 2,
+      "text": "Feedback 2",
+      "status": "decline"
+    },
+    {
+      "id": 3,
+      "text": "Feedback 3",
+      "status": "approve"
+    },
+    {
+      "id": 4,
+      "text": "Feedback 4",
+      "status": "approve"
+    }
+  ]
 }

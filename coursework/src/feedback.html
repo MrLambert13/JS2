@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback</title>
+  <style>
+    .box {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      width: 400px;
+    }
+
+    .approved {
+      background-color: #6cff8c;
+      margin: 1px 0;
+      padding: 5px;
+    }
+
+    .added {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .declined {
+      background-color: #ffa5a2;
+      margin: 1px 0;
+      padding: 5px;
+    }
+
+    .newFeedback {
+      display: block;
+      margin: 10px 0;
+    }
+  </style>
+  <script
+          src="https://code.jquery.com/jquery-3.3.1.js"
+          integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+          crossorigin="anonymous"></script>
+  <script src="script/feedback.js"></script>
+</head>
+<body>
+<div id="approved" class="box"></div>
+<hr>
+<div id="added" class="box"></div>
+<hr>
+<div id="declined" class="box"></div>
+
+<textarea class="newFeedback" name="newFeedback" id="newFeedback" cols="60" rows="10"></textarea>
+<button id="submit">Отправить</button>
+</body>
+</html>
