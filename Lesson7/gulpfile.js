@@ -4,8 +4,8 @@
  * npm run gulp clean - удаление папки dist
  */
 
-var gulp = require('gulp'),
-  sass = require('gulp-sass'),
+var gulp = require('gulp');
+var sass = require('gulp-sass'),
   browserSync = require('browser-sync'),
   //подключаем плагин gulp-useref для объекдинения js
   useref = require('gulp-useref'),

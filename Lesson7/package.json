@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jqueryui": "^1.11.1",
     "jquery": "^3.3.1"
   },
   "devDependencies": {
